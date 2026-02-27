@@ -70,6 +70,19 @@ export type DbPost = {
   published_at: string | null;
 };
 
+export async function getPublishedPostByUsernameSlug(
+  username: string,
+  slug: string
+): Promise<DbPost | null> {
+  const db = getDb();
+  if (!db) return null;
+  const stmt = db.prepare(
+    "SELECT posts.* FROM posts JOIN users ON posts.user_id = users.id WHERE users.username = ? AND posts.slug = ? AND posts.status = 'published' LIMIT 1"
+  );
+  const result = await stmt.bind(username, slug).first<DbPost>();
+  return result ?? null;
+}
+
 export async function listPosts(userId: string): Promise<DbPost[]> {
   const db = getDb();
   if (!db) return [];
