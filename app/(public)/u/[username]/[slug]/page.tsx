@@ -20,6 +20,7 @@ export default async function PostPage({ params }: PageProps) {
     <main>
       <h1>@{params.username}</h1>
       <h2>{post.title}</h2>
+      {post.cover_url ? <img src={post.cover_url} alt="Cover" /> : null}
       <article dangerouslySetInnerHTML={{ __html: html }} />
     </main>
   );

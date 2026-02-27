@@ -70,6 +70,7 @@ export type DbPost = {
   user_id: string;
   title: string;
   slug: string;
+  cover_url: string | null;
   markdown: string;
   html: string;
   status: string;
@@ -113,7 +114,7 @@ export async function createPost(post: DbPost): Promise<void> {
   const db = getDb();
   if (!db) return;
   const stmt = db.prepare(
-    "INSERT INTO posts (id, user_id, title, slug, markdown, html, status, created_at, updated_at, published_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+    "INSERT INTO posts (id, user_id, title, slug, cover_url, markdown, html, status, created_at, updated_at, published_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
   );
   await stmt
     .bind(
@@ -121,6 +122,7 @@ export async function createPost(post: DbPost): Promise<void> {
       post.user_id,
       post.title,
       post.slug,
+      post.cover_url,
       post.markdown,
       post.html,
       post.status,
@@ -135,12 +137,13 @@ export async function updatePost(post: DbPost): Promise<void> {
   const db = getDb();
   if (!db) return;
   const stmt = db.prepare(
-    "UPDATE posts SET title = ?, slug = ?, markdown = ?, html = ?, status = ?, updated_at = ?, published_at = ? WHERE id = ? AND user_id = ?"
+    "UPDATE posts SET title = ?, slug = ?, cover_url = ?, markdown = ?, html = ?, status = ?, updated_at = ?, published_at = ? WHERE id = ? AND user_id = ?"
   );
   await stmt
     .bind(
       post.title,
       post.slug,
+      post.cover_url,
       post.markdown,
       post.html,
       post.status,

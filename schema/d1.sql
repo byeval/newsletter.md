@@ -15,6 +15,7 @@ CREATE TABLE IF NOT EXISTS posts (
   user_id TEXT NOT NULL,
   title TEXT NOT NULL,
   slug TEXT NOT NULL,
+  cover_url TEXT,
   markdown TEXT NOT NULL,
   html TEXT NOT NULL,
   status TEXT NOT NULL,

@@ -11,6 +11,7 @@ export async function PUT(request: Request, context: { params: { id: string } })
   }
   const now = new Date().toISOString();
   const markdown = typeof body.markdown === "string" ? body.markdown : "";
+  const coverUrl = typeof body.cover_url === "string" ? body.cover_url : null;
   const html = renderMarkdown(markdown);
   const slug = typeof body.slug === "string" ? body.slug : body.title.toLowerCase().replace(/\s+/g, "-");
   const status = typeof body.status === "string" ? body.status : "draft";
@@ -20,6 +21,7 @@ export async function PUT(request: Request, context: { params: { id: string } })
     user_id: session.userId,
     title: body.title,
     slug,
+    cover_url: coverUrl,
     markdown,
     html,
     status,
