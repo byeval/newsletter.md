@@ -26,6 +26,14 @@ export async function getUserById(id: string): Promise<DbUser | null> {
   return result ?? null;
 }
 
+export async function getUserByUsername(username: string): Promise<DbUser | null> {
+  const db = getDb();
+  if (!db) return null;
+  const stmt = db.prepare("SELECT * FROM users WHERE username = ? LIMIT 1");
+  const result = await stmt.bind(username).first<DbUser>();
+  return result ?? null;
+}
+
 export async function createUser(data: DbUser): Promise<void> {
   const db = getDb();
   if (!db) return;
@@ -87,6 +95,16 @@ export async function listPosts(userId: string): Promise<DbPost[]> {
   const db = getDb();
   if (!db) return [];
   const stmt = db.prepare("SELECT * FROM posts WHERE user_id = ? ORDER BY updated_at DESC");
+  const result = await stmt.bind(userId).all<DbPost>();
+  return result.results ?? [];
+}
+
+export async function listPublishedPostsByUserId(userId: string): Promise<DbPost[]> {
+  const db = getDb();
+  if (!db) return [];
+  const stmt = db.prepare(
+    "SELECT * FROM posts WHERE user_id = ? AND status = 'published' ORDER BY published_at DESC"
+  );
   const result = await stmt.bind(userId).all<DbPost>();
   return result.results ?? [];
 }
