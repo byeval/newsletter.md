@@ -9,6 +9,9 @@ export default function AdminHomePage() {
         <li>
           <a href="/admin/themes">Themes</a>
         </li>
+        <li>
+          <a href="/admin/profile">Profile</a>
+        </li>
       </ul>
     </main>
   );
