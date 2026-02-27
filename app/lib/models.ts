@@ -1,0 +1,122 @@
+import { getDb } from "./db";
+
+export type DbUser = {
+  id: string;
+  google_id: string;
+  email: string;
+  name: string | null;
+  avatar_url: string | null;
+  username: string | null;
+  created_at: string;
+};
+
+export async function getUserByGoogleId(googleId: string): Promise<DbUser | null> {
+  const db = getDb();
+  if (!db) return null;
+  const stmt = db.prepare("SELECT * FROM users WHERE google_id = ? LIMIT 1");
+  const result = await stmt.bind(googleId).first<DbUser>();
+  return result ?? null;
+}
+
+export async function getUserById(id: string): Promise<DbUser | null> {
+  const db = getDb();
+  if (!db) return null;
+  const stmt = db.prepare("SELECT * FROM users WHERE id = ? LIMIT 1");
+  const result = await stmt.bind(id).first<DbUser>();
+  return result ?? null;
+}
+
+export async function createUser(data: DbUser): Promise<void> {
+  const db = getDb();
+  if (!db) return;
+  const stmt = db.prepare(
+    "INSERT INTO users (id, google_id, email, name, avatar_url, username, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)"
+  );
+  await stmt
+    .bind(
+      data.id,
+      data.google_id,
+      data.email,
+      data.name,
+      data.avatar_url,
+      data.username,
+      data.created_at
+    )
+    .run();
+}
+
+export async function setUsername(userId: string, username: string): Promise<boolean> {
+  const db = getDb();
+  if (!db) return false;
+  const exists = await db
+    .prepare("SELECT 1 FROM users WHERE username = ? LIMIT 1")
+    .bind(username)
+    .first();
+  if (exists) return false;
+  await db.prepare("UPDATE users SET username = ? WHERE id = ?").bind(username, userId).run();
+  return true;
+}
+
+export type DbPost = {
+  id: string;
+  user_id: string;
+  title: string;
+  slug: string;
+  markdown: string;
+  html: string;
+  status: string;
+  created_at: string;
+  updated_at: string;
+  published_at: string | null;
+};
+
+export async function listPosts(userId: string): Promise<DbPost[]> {
+  const db = getDb();
+  if (!db) return [];
+  const stmt = db.prepare("SELECT * FROM posts WHERE user_id = ? ORDER BY updated_at DESC");
+  const result = await stmt.bind(userId).all<DbPost>();
+  return result.results ?? [];
+}
+
+export async function createPost(post: DbPost): Promise<void> {
+  const db = getDb();
+  if (!db) return;
+  const stmt = db.prepare(
+    "INSERT INTO posts (id, user_id, title, slug, markdown, html, status, created_at, updated_at, published_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+  );
+  await stmt
+    .bind(
+      post.id,
+      post.user_id,
+      post.title,
+      post.slug,
+      post.markdown,
+      post.html,
+      post.status,
+      post.created_at,
+      post.updated_at,
+      post.published_at
+    )
+    .run();
+}
+
+export async function updatePost(post: DbPost): Promise<void> {
+  const db = getDb();
+  if (!db) return;
+  const stmt = db.prepare(
+    "UPDATE posts SET title = ?, slug = ?, markdown = ?, html = ?, status = ?, updated_at = ?, published_at = ? WHERE id = ? AND user_id = ?"
+  );
+  await stmt
+    .bind(
+      post.title,
+      post.slug,
+      post.markdown,
+      post.html,
+      post.status,
+      post.updated_at,
+      post.published_at,
+      post.id,
+      post.user_id
+    )
+    .run();
+}
