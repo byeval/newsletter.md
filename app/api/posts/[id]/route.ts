@@ -31,3 +31,10 @@ export async function PUT(request: Request, context: { params: { id: string } })
   });
   return Response.json({ id: context.params.id, status });
 }
+
+export async function DELETE(request: Request, context: { params: { id: string } }) {
+  const session = await getSessionFromCookie(request.headers.get("cookie"));
+  if (!session) return Response.json({ error: "Unauthorized" }, { status: 401 });
+  await import("../../../lib/models").then((m) => m.deletePost(context.params.id, session.userId));
+  return Response.json({ success: true });
+}

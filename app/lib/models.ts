@@ -74,6 +74,7 @@ export type DbPost = {
   markdown: string;
   html: string;
   status: string;
+  pinned: number;
   created_at: string;
   updated_at: string;
   published_at: string | null;
@@ -163,6 +164,13 @@ export async function updatePost(post: DbPost): Promise<void> {
       post.user_id
     )
     .run();
+}
+
+export async function deletePost(id: string, userId: string): Promise<void> {
+  const db = getDb();
+  if (!db) return;
+  const stmt = db.prepare("DELETE FROM posts WHERE id = ? AND user_id = ?");
+  await stmt.bind(id, userId).run();
 }
 
 export async function getActiveThemeConfigByUserId(

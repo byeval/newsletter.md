@@ -1,23 +1,28 @@
 import UploadWidget from "./UploadWidget";
-import { getSessionFromCookie } from "../../lib/auth";
-import { getPostById } from "../../lib/models";
-import { headers } from "vinext/headers";
 
 type PageProps = {
   searchParams: { id?: string };
 };
 
+type Post = {
+  id: string;
+  title: string;
+  slug: string;
+  markdown: string;
+  cover_url: string | null;
+  status: string;
+};
+
 export default async function EditorPage({ searchParams }: PageProps) {
-  const cookie = (await headers()).get("cookie");
-  const session = await getSessionFromCookie(cookie);
-  
-  let post = null;
-  if (session && searchParams.id) {
-    post = await getPostById(searchParams.id, session.userId);
+  let post: Post | null = null;
+  if (searchParams.id) {
+    const res = await fetch("/api/posts", { cache: "no-store" });
+    const data = await res.json() as { posts?: Post[] };
+    post = data.posts?.find((p) => p.id === searchParams.id) ?? null;
   }
 
   const isEditing = !!post;
-  const actionUrl = isEditing ? `/api/posts/${post.id}` : "/api/posts";
+  const actionUrl = isEditing ? `/api/posts/${post?.id}` : "/api/posts";
 
   return (
     <main>
@@ -62,10 +67,6 @@ export default async function EditorPage({ searchParams }: PageProps) {
             <option value="draft">Draft</option>
             <option value="published">Published</option>
           </select>
-        </label>
-        <label>
-          Pin on profile
-          <input name="pinned" type="checkbox" value="1" defaultChecked={!!post?.pinned} />
         </label>
         <button type="submit">{isEditing ? "Update Post" : "Save Post"}</button>
       </form>
