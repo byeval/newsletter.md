@@ -16,6 +16,10 @@ export default function EditorPage() {
           <textarea name="markdown" rows={12} />
         </label>
         <label>
+          Cover Image URL
+          <input name="cover_url" type="text" />
+        </label>
+        <label>
           Status
           <select name="status">
             <option value="draft">Draft</option>
