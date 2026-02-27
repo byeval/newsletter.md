@@ -1,3 +1,4 @@
+import yaml from "js-yaml";
 import { getDb } from "./db";
 
 export type ThemeSchema = {
@@ -25,6 +26,17 @@ export async function getThemeById(id: string): Promise<ThemeRecord | null> {
   const stmt = db.prepare("SELECT * FROM themes WHERE id = ? LIMIT 1");
   const result = await stmt.bind(id).first<ThemeRecord>();
   return result ?? null;
+}
+
+export function parseThemeSchema(yamlSchema: string): ThemeSchema | null {
+  try {
+    const data = yaml.load(yamlSchema) as ThemeSchema;
+    if (!data || typeof data !== "object") return null;
+    if (!data.name || !data.version || !data.settings) return null;
+    return data;
+  } catch {
+    return null;
+  }
 }
 
 export function validateThemeConfig(schema: ThemeSchema, values: Record<string, unknown>): boolean {

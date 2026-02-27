@@ -1,5 +1,5 @@
 import { getSessionFromCookie } from "../../../lib/auth";
-import { getThemeById, validateThemeConfig } from "../../../lib/theme";
+import { getThemeById, parseThemeSchema, validateThemeConfig } from "../../../lib/theme";
 import { getDb } from "../../../lib/db";
 
 export async function PUT(request: Request) {
@@ -11,8 +11,9 @@ export async function PUT(request: Request) {
   }
   const theme = await getThemeById(body.theme_id);
   if (!theme) return Response.json({ error: "Theme not found" }, { status: 404 });
-  const schema = JSON.parse(theme.yaml_schema) as { name: string; version: string; settings: Record<string, unknown> };
-  const ok = validateThemeConfig(schema as never, body.config_values ?? {});
+  const schema = parseThemeSchema(theme.yaml_schema);
+  if (!schema) return Response.json({ error: "Invalid theme schema" }, { status: 400 });
+  const ok = validateThemeConfig(schema, body.config_values ?? {});
   if (!ok) return Response.json({ error: "Invalid config" }, { status: 400 });
   const db = getDb();
   if (!db) return Response.json({ error: "Storage unavailable" }, { status: 503 });
