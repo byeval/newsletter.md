@@ -228,3 +228,20 @@ export async function getPublishedPageByUsernameSlug(
   const result = await stmt.bind(username, slug).first<DbPage>();
   return result ?? null;
 }
+
+export async function getActiveThemeConfigByUserId(
+  userId: string
+): Promise<Record<string, unknown>> {
+  const db = getDb();
+  if (!db) return {};
+  const result = await db
+    .prepare("SELECT config_values FROM user_themes WHERE user_id = ? AND is_active = 1 LIMIT 1")
+    .bind(userId)
+    .first<{ config_values: string }>();
+  if (!result?.config_values) return {};
+  try {
+    return JSON.parse(result.config_values) as Record<string, unknown>;
+  } catch {
+    return {};
+  }
+}
