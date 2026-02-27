@@ -1,11 +1,21 @@
 import { getSessionFromCookie } from "../../../lib/auth";
-import { updatePost } from "../../../lib/models";
+import { deletePost, getPostById, updatePost } from "../../../lib/models";
 import { renderMarkdown } from "../../../lib/markdown";
+
+export async function GET(request: Request, context: { params: { id: string } }) {
+  const session = await getSessionFromCookie(request.headers.get("cookie"));
+  if (!session) return Response.json({ post: null });
+  const post = await getPostById(session.userId, context.params.id);
+  return Response.json({ post });
+}
 
 export async function PUT(request: Request, context: { params: { id: string } }) {
   const session = await getSessionFromCookie(request.headers.get("cookie"));
   if (!session) return Response.json({ error: "Unauthorized" }, { status: 401 });
-  const body = await request.json().catch(() => null);
+  const contentType = request.headers.get("content-type") ?? "";
+  const body = contentType.includes("application/json")
+    ? await request.json().catch(() => null)
+    : Object.fromEntries(await request.formData().then((data) => data.entries()));
   if (!body || typeof body.title !== "string") {
     return Response.json({ error: "Invalid payload" }, { status: 400 });
   }
@@ -35,6 +45,6 @@ export async function PUT(request: Request, context: { params: { id: string } })
 export async function DELETE(request: Request, context: { params: { id: string } }) {
   const session = await getSessionFromCookie(request.headers.get("cookie"));
   if (!session) return Response.json({ error: "Unauthorized" }, { status: 401 });
-  await import("../../../lib/models").then((m) => m.deletePost(context.params.id, session.userId));
+  await deletePost(context.params.id, session.userId);
   return Response.json({ success: true });
 }

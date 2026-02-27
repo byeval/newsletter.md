@@ -93,6 +93,14 @@ export async function getPublishedPostByUsernameSlug(
   return result ?? null;
 }
 
+export async function getPostById(userId: string, postId: string): Promise<DbPost | null> {
+  const db = getDb();
+  if (!db) return null;
+  const stmt = db.prepare("SELECT * FROM posts WHERE id = ? AND user_id = ? LIMIT 1");
+  const result = await stmt.bind(postId, userId).first<DbPost>();
+  return result ?? null;
+}
+
 export async function listPosts(userId: string): Promise<DbPost[]> {
   const db = getDb();
   if (!db) return [];
@@ -164,6 +172,12 @@ export async function updatePost(post: DbPost): Promise<void> {
       post.user_id
     )
     .run();
+}
+
+export async function deletePost(postId: string, userId: string): Promise<void> {
+  const db = getDb();
+  if (!db) return;
+  await db.prepare("DELETE FROM posts WHERE id = ? AND user_id = ?").bind(postId, userId).run();
 }
 
 export async function deletePost(id: string, userId: string): Promise<void> {

@@ -16,9 +16,9 @@ type Post = {
 export default async function EditorPage({ searchParams }: PageProps) {
   let post: Post | null = null;
   if (searchParams.id) {
-    const res = await fetch("/api/posts", { cache: "no-store" });
-    const data = await res.json() as { posts?: Post[] };
-    post = data.posts?.find((p) => p.id === searchParams.id) ?? null;
+    const res = await fetch(`/api/posts/${searchParams.id}`, { cache: "no-store" });
+    const data = await res.json() as { post?: Post | null };
+    post = data.post ?? null;
   }
 
   const isEditing = !!post;
