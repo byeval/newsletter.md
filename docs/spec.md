@@ -1,10 +1,10 @@
-# VNext Press Spec (MVP)
+# letters Spec (MVP)
 
 This document defines the initial architecture, API surface, data model, and repo layout for a Cloudflare-native, WordPress-lite publishing platform.
 
 ## Goals
 - Free, open-source, simple publishing platform
-- Custom username path: `newsletter.md/@username`
+- Custom username path: `newsletter.md/u/username`
 - Themes with YAML-defined configuration
 - Markdown editor + publish flow
 - Deploy on Cloudflare Workers + D1 + R2
@@ -16,34 +16,37 @@ This document defines the initial architecture, API surface, data model, and rep
 - Advanced analytics
 
 ## Stack
-- Runtime: Cloudflare Workers
-- API framework: Hono (lightweight)
+- Runtime: Cloudflare Workers (vinext)
+- Framework: vinext (Next.js API surface on Vite)
 - Database: Cloudflare D1 (SQLite)
 - Storage: Cloudflare R2 (uploads, theme assets)
 - Cache: Cloudflare Cache API (public pages)
 - Auth: Google OAuth + signed session cookie
 
 ## Repo Layout
-- `worker/` Worker app (API + SSR)
-- `worker/src/` source code
+- `app/` vinext App Router (UI + API routes)
 - `docs/` specifications and API docs
 - `schema/` D1 schema
 
 ## Routing
-- `GET /@username` public homepage
-- `GET /@username/:slug` public post page
-- `GET /@username/page/:slug` public page
+- `GET /u/:username` public homepage
+- `GET /u/:username/:slug` public post page
+- `GET /u/:username/page/:slug` public page
 - `GET /api/health` health check
 - `POST /api/auth/google` exchange Google token and issue session
-- `POST /api/username/claim` claim `@username`
+- `POST /api/username/claim` claim `username`
 - `GET /api/me` current user
 - `GET /api/themes` marketplace list
+- `GET /api/themes/:id` fetch theme schema
+- `GET /api/themes/active` current active theme
 - `POST /api/themes/activate` activate theme
 - `PUT /api/themes/config` update theme config
 - `GET /api/posts` list posts
 - `POST /api/posts` create post
 - `PUT /api/posts/:id` update post
-- `POST /api/uploads` get signed upload URL
+- `POST /api/uploads` get upload URL
+- `PUT /api/uploads?key=...` upload to R2
+- `GET /r2/*` serve R2 assets
 
 ## Auth
 - Google OAuth (server-side exchange)
@@ -80,7 +83,7 @@ settings:
 ```
 
 ## Rendering
-- SSR HTML rendering in Worker for public pages
+- SSR HTML rendering via vinext App Router
 - Markdown -> HTML stored in D1
 - HTML sanitized before render
 
