@@ -1,0 +1,29 @@
+# Node
+node_modules/
+npm-debug.log*
+pnpm-debug.log*
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Build / cache
+dist/
+build/
+.vite/
+.cache/
+.parcel-cache/
+*.tsbuildinfo
+
+# Wrangler local files
+.wrangler/
+
+# Editor directories and system files
+.vscode/
+.idea/
+.DS_Store
+
+# Logs
+logs/
+*.log
