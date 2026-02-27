@@ -3,7 +3,10 @@ import { setUsername } from "../../../lib/models";
 import { isValidUsername } from "../../../lib/validators";
 
 export async function POST(request: Request) {
-  const body = await request.json().catch(() => null);
+  const contentType = request.headers.get("content-type") ?? "";
+  const body = contentType.includes("application/json")
+    ? await request.json().catch(() => null)
+    : Object.fromEntries(await request.formData().then((data) => data.entries()));
   if (!body || typeof body.username !== "string") {
     return Response.json({ error: "Invalid payload" }, { status: 400 });
   }
