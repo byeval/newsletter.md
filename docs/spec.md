@@ -89,7 +89,6 @@ settings:
 
 ## Content Model
 - Single content type: posts
-- Optional pinned post for profile/landing content
 
 ## Caching
 - Cache public pages using Cache API
