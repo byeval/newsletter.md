@@ -11,6 +11,21 @@ export async function POST(request: Request) {
   const bucket = getBucket();
   if (!bucket) return Response.json({ error: "Storage unavailable" }, { status: 503 });
   const key = `uploads/${session.userId}/${body.filename}`;
-  const uploadUrl = new URL(`https://example.invalid/${key}`);
-  return Response.json({ upload_url: uploadUrl.toString(), key, public_url: "" });
+  const uploadUrl = `/api/uploads?key=${encodeURIComponent(key)}`;
+  return Response.json({ upload_url: uploadUrl, key, public_url: "" });
+}
+
+export async function PUT(request: Request) {
+  const session = await getSessionFromCookie(request.headers.get("cookie"));
+  if (!session) return Response.json({ error: "Unauthorized" }, { status: 401 });
+  const url = new URL(request.url);
+  const key = url.searchParams.get("key");
+  if (!key) return Response.json({ error: "Missing key" }, { status: 400 });
+  const bucket = getBucket();
+  if (!bucket) return Response.json({ error: "Storage unavailable" }, { status: 503 });
+  const contentType = request.headers.get("content-type") ?? "application/octet-stream";
+  await bucket.put(key, request.body ?? "", {
+    httpMetadata: { contentType },
+  });
+  return Response.json({ key });
 }
