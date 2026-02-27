@@ -15,6 +15,13 @@ export default function EditorPage() {
           Markdown
           <textarea name="markdown" rows={12} />
         </label>
+        <label>
+          Status
+          <select name="status">
+            <option value="draft">Draft</option>
+            <option value="published">Published</option>
+          </select>
+        </label>
         <button type="submit">Save draft</button>
       </form>
     </main>

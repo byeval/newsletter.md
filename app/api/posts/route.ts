@@ -16,7 +16,10 @@ export async function GET(request: Request) {
 export async function POST(request: Request) {
   const session = await getSessionFromCookie(request.headers.get("cookie"));
   if (!session) return Response.json({ error: "Unauthorized" }, { status: 401 });
-  const body = await request.json().catch(() => null);
+  const contentType = request.headers.get("content-type") ?? "";
+  const body = contentType.includes("application/json")
+    ? await request.json().catch(() => null)
+    : Object.fromEntries(await request.formData().then((data) => data.entries()));
   if (!body || typeof body.title !== "string") {
     return Response.json({ error: "Invalid payload" }, { status: 400 });
   }
@@ -24,6 +27,7 @@ export async function POST(request: Request) {
   const markdown = typeof body.markdown === "string" ? body.markdown : "";
   const html = renderMarkdown(markdown);
   const slug = typeof body.slug === "string" ? body.slug : body.title.toLowerCase().replace(/\s+/g, "-");
+  const status = typeof body.status === "string" ? body.status : "draft";
   const id = createId();
   await createPost({
     id,
@@ -32,10 +36,10 @@ export async function POST(request: Request) {
     slug,
     markdown,
     html,
-    status: "draft",
+    status,
     created_at: now,
     updated_at: now,
-    published_at: null,
+    published_at: status === "published" ? now : null,
   });
-  return Response.json({ id, status: "draft" });
+  return Response.json({ id, status });
 }
