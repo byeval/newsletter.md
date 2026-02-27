@@ -3,6 +3,7 @@ export type Env = {
   BUCKET: R2Bucket;
   THEME_KV: KVNamespace;
   AUTH_SECRET: string;
+  GOOGLE_CLIENT_ID: string;
 };
 
 export function getEnv(): Partial<Env> {

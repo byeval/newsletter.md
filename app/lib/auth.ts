@@ -10,11 +10,24 @@ export type Session = {
 
 export async function verifyGoogleToken(idToken: string): Promise<Session | null> {
   if (!idToken) return null;
+  const env = getEnv();
+  if (!env.GOOGLE_CLIENT_ID) return null;
+  const response = await fetch("https://oauth2.googleapis.com/tokeninfo?id_token=" + encodeURIComponent(idToken));
+  if (!response.ok) return null;
+  const payload = (await response.json()) as {
+    sub?: string;
+    email?: string;
+    name?: string;
+    picture?: string;
+    aud?: string;
+  };
+  if (!payload.sub || !payload.email) return null;
+  if (payload.aud !== env.GOOGLE_CLIENT_ID) return null;
   return {
-    userId: "user",
-    email: "user@example.com",
-    name: "User",
-    avatarUrl: null,
+    userId: payload.sub,
+    email: payload.email,
+    name: payload.name ?? null,
+    avatarUrl: payload.picture ?? null,
   };
 }
 
