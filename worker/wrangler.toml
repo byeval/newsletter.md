@@ -1,0 +1,16 @@
+name = "letters"
+main = "src/index.ts"
+compatibility_date = "2026-02-27"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "letters"
+database_id = ""
+
+[[r2_buckets]]
+binding = "BUCKET"
+bucket_name = "letters"
+
+[[kv_namespaces]]
+binding = "THEME_KV"
+id = ""
