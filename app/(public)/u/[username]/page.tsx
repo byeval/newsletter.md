@@ -18,11 +18,11 @@ export default async function UserHomePage({ params }: PageProps) {
       </main>
     );
   }
-  const themeConfig = await getActiveThemeConfigByUserId(user.id);
-  const brand = typeof themeConfig.brand === "string" ? themeConfig.brand : null;
-  const logo = typeof themeConfig.logo === "string" ? themeConfig.logo : null;
-  const primaryColor = typeof themeConfig.primary_color === "string" ? themeConfig.primary_color : null;
-  const socialLinks = Array.isArray(themeConfig.social_links) ? themeConfig.social_links : [];
+  const config = await getActiveThemeConfigByUserId(user.id);
+  const brand = typeof config.brand === "string" ? config.brand : null;
+  const logo = typeof config.logo === "string" ? config.logo : null;
+  const primaryColor = typeof config.primary_color === "string" ? config.primary_color : null;
+  const socialLinks = Array.isArray(config.social_links) ? config.social_links : [];
   const posts = await listPublishedPostsByUserId(user.id);
   return (
     <main>
