@@ -74,21 +74,10 @@ export type DbPost = {
   markdown: string;
   html: string;
   status: string;
+  pinned: number;
   created_at: string;
   updated_at: string;
   published_at: string | null;
-};
-
-export type DbPage = {
-  id: string;
-  user_id: string;
-  title: string;
-  slug: string;
-  markdown: string;
-  html: string;
-  status: string;
-  created_at: string;
-  updated_at: string;
 };
 
 export async function getPublishedPostByUsernameSlug(
@@ -107,7 +96,9 @@ export async function getPublishedPostByUsernameSlug(
 export async function listPosts(userId: string): Promise<DbPost[]> {
   const db = getDb();
   if (!db) return [];
-  const stmt = db.prepare("SELECT * FROM posts WHERE user_id = ? ORDER BY updated_at DESC");
+  const stmt = db.prepare(
+    "SELECT * FROM posts WHERE user_id = ? ORDER BY pinned DESC, updated_at DESC"
+  );
   const result = await stmt.bind(userId).all<DbPost>();
   return result.results ?? [];
 }
@@ -126,7 +117,7 @@ export async function createPost(post: DbPost): Promise<void> {
   const db = getDb();
   if (!db) return;
   const stmt = db.prepare(
-    "INSERT INTO posts (id, user_id, title, slug, cover_url, markdown, html, status, created_at, updated_at, published_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+    "INSERT INTO posts (id, user_id, title, slug, cover_url, markdown, html, status, pinned, created_at, updated_at, published_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
   );
   await stmt
     .bind(
@@ -138,6 +129,7 @@ export async function createPost(post: DbPost): Promise<void> {
       post.markdown,
       post.html,
       post.status,
+      post.pinned,
       post.created_at,
       post.updated_at,
       post.published_at
@@ -149,7 +141,7 @@ export async function updatePost(post: DbPost): Promise<void> {
   const db = getDb();
   if (!db) return;
   const stmt = db.prepare(
-    "UPDATE posts SET title = ?, slug = ?, cover_url = ?, markdown = ?, html = ?, status = ?, updated_at = ?, published_at = ? WHERE id = ? AND user_id = ?"
+    "UPDATE posts SET title = ?, slug = ?, cover_url = ?, markdown = ?, html = ?, status = ?, pinned = ?, updated_at = ?, published_at = ? WHERE id = ? AND user_id = ?"
   );
   await stmt
     .bind(
@@ -159,74 +151,13 @@ export async function updatePost(post: DbPost): Promise<void> {
       post.markdown,
       post.html,
       post.status,
+      post.pinned,
       post.updated_at,
       post.published_at,
       post.id,
       post.user_id
     )
     .run();
-}
-
-export async function listPages(userId: string): Promise<DbPage[]> {
-  const db = getDb();
-  if (!db) return [];
-  const stmt = db.prepare("SELECT * FROM pages WHERE user_id = ? ORDER BY updated_at DESC");
-  const result = await stmt.bind(userId).all<DbPage>();
-  return result.results ?? [];
-}
-
-export async function createPage(page: DbPage): Promise<void> {
-  const db = getDb();
-  if (!db) return;
-  const stmt = db.prepare(
-    "INSERT INTO pages (id, user_id, title, slug, markdown, html, status, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"
-  );
-  await stmt
-    .bind(
-      page.id,
-      page.user_id,
-      page.title,
-      page.slug,
-      page.markdown,
-      page.html,
-      page.status,
-      page.created_at,
-      page.updated_at
-    )
-    .run();
-}
-
-export async function updatePage(page: DbPage): Promise<void> {
-  const db = getDb();
-  if (!db) return;
-  const stmt = db.prepare(
-    "UPDATE pages SET title = ?, slug = ?, markdown = ?, html = ?, status = ?, updated_at = ? WHERE id = ? AND user_id = ?"
-  );
-  await stmt
-    .bind(
-      page.title,
-      page.slug,
-      page.markdown,
-      page.html,
-      page.status,
-      page.updated_at,
-      page.id,
-      page.user_id
-    )
-    .run();
-}
-
-export async function getPublishedPageByUsernameSlug(
-  username: string,
-  slug: string
-): Promise<DbPage | null> {
-  const db = getDb();
-  if (!db) return null;
-  const stmt = db.prepare(
-    "SELECT pages.* FROM pages JOIN users ON pages.user_id = users.id WHERE users.username = ? AND pages.slug = ? AND pages.status = 'published' LIMIT 1"
-  );
-  const result = await stmt.bind(username, slug).first<DbPage>();
-  return result ?? null;
 }
 
 export async function getActiveThemeConfigByUserId(

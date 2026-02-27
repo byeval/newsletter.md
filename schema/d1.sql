@@ -19,6 +19,7 @@ CREATE TABLE IF NOT EXISTS posts (
   markdown TEXT NOT NULL,
   html TEXT NOT NULL,
   status TEXT NOT NULL,
+  pinned INTEGER NOT NULL DEFAULT 0,
   created_at TEXT NOT NULL,
   updated_at TEXT NOT NULL,
   published_at TEXT,
@@ -26,19 +27,6 @@ CREATE TABLE IF NOT EXISTS posts (
   FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
-CREATE TABLE IF NOT EXISTS pages (
-  id TEXT PRIMARY KEY,
-  user_id TEXT NOT NULL,
-  title TEXT NOT NULL,
-  slug TEXT NOT NULL,
-  markdown TEXT NOT NULL,
-  html TEXT NOT NULL,
-  status TEXT NOT NULL,
-  created_at TEXT NOT NULL,
-  updated_at TEXT NOT NULL,
-  UNIQUE(user_id, slug),
-  FOREIGN KEY (user_id) REFERENCES users(id)
-);
 
 CREATE TABLE IF NOT EXISTS themes (
   id TEXT PRIMARY KEY,

@@ -31,7 +31,7 @@ This document defines the initial architecture, API surface, data model, and rep
 ## Routing
 - `GET /u/:username` public homepage
 - `GET /u/:username/:slug` public post page
-- `GET /u/:username/page/:slug` public page
+- `GET /u/:username/page/:slug` public page (removed in MVP)
 - `GET /api/health` health check
 - `POST /api/auth/google` exchange Google token and issue session
 - `POST /api/username/claim` claim `username`
@@ -86,6 +86,10 @@ settings:
 - SSR HTML rendering via vinext App Router
 - Markdown -> HTML stored in D1
 - HTML sanitized before render
+
+## Content Model
+- Single content type: posts
+- Optional pinned post for profile/landing content
 
 ## Caching
 - Cache public pages using Cache API

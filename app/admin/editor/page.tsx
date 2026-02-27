@@ -29,6 +29,10 @@ export default function EditorPage() {
             <option value="published">Published</option>
           </select>
         </label>
+        <label>
+          Pin on profile
+          <input name="pinned" type="checkbox" value="1" />
+        </label>
         <button type="submit">Save draft</button>
       </form>
     </main>

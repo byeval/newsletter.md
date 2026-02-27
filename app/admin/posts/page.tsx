@@ -3,6 +3,7 @@ type Post = {
   title: string;
   slug: string;
   status: string;
+  pinned: number;
   updated_at: string;
 };
 
@@ -20,7 +21,7 @@ export default async function PostsPage() {
       <ul>
         {posts.map((post) => (
           <li key={post.id}>
-            {post.title} ({post.status})
+            {post.title} ({post.status}){post.pinned ? " [pinned]" : ""}
           </li>
         ))}
       </ul>

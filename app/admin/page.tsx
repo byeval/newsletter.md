@@ -10,9 +10,6 @@ export default function AdminHomePage() {
           <a href="/admin/posts">Posts</a>
         </li>
         <li>
-          <a href="/admin/pages">Pages</a>
-        </li>
-        <li>
           <a href="/admin/themes">Themes</a>
         </li>
         <li>
