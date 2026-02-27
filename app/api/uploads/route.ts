@@ -10,9 +10,10 @@ export async function POST(request: Request) {
   }
   const bucket = getBucket();
   if (!bucket) return Response.json({ error: "Storage unavailable" }, { status: 503 });
-  const key = `uploads/${session.userId}/${body.filename}`;
+  const key = `uploads/${session.userId}/${Date.now()}-${body.filename}`;
   const uploadUrl = `/api/uploads?key=${encodeURIComponent(key)}`;
-  return Response.json({ upload_url: uploadUrl, key, public_url: "" });
+  const publicUrl = `/r2/${encodeURIComponent(key)}`;
+  return Response.json({ upload_url: uploadUrl, key, public_url: publicUrl });
 }
 
 export async function PUT(request: Request) {

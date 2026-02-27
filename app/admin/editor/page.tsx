@@ -1,3 +1,5 @@
+import UploadWidget from "./UploadWidget";
+
 export default function EditorPage() {
   return (
     <main>
@@ -17,8 +19,9 @@ export default function EditorPage() {
         </label>
         <label>
           Cover Image URL
-          <input name="cover_url" type="text" />
+          <input id="cover_url" name="cover_url" type="text" />
         </label>
+        <UploadWidget />
         <label>
           Status
           <select name="status">
