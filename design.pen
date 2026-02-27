@@ -3,15 +3,899 @@
   "children": [
     {
       "type": "frame",
-      "id": "bi8Au",
+      "id": "xgMuw",
       "x": 0,
-      "y": 0,
-      "name": "Frame",
-      "clip": true,
-      "width": 800,
-      "height": 600,
-      "fill": "#FFFFFF",
-      "layout": "none"
+      "y": 2109,
+      "name": "Swiss Elegant Blog Platform",
+      "width": 1440,
+      "fill": "#FAFAF7",
+      "children": [
+        {
+          "type": "frame",
+          "id": "9LbBM",
+          "name": "Content Area",
+          "width": "fill_container",
+          "height": 1500,
+          "layout": "vertical",
+          "gap": 48,
+          "padding": [
+            40,
+            56
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "Pdv79",
+              "name": "Header",
+              "width": "fill_container",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "IUiEI",
+                  "name": "pageTitle",
+                  "fill": "#0F0F0F",
+                  "content": "Publications",
+                  "fontFamily": "Cormorant Garamond",
+                  "fontSize": 64,
+                  "fontWeight": "500",
+                  "letterSpacing": -2
+                },
+                {
+                  "type": "frame",
+                  "id": "EOdxB",
+                  "name": "headerActions",
+                  "gap": 16,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "kSvlF",
+                      "name": "newBtn",
+                      "fill": "#C41E3A",
+                      "gap": 8,
+                      "padding": [
+                        10,
+                        16
+                      ],
+                      "children": [
+                        {
+                          "type": "icon_font",
+                          "id": "NNBLw",
+                          "name": "newBtnIcon",
+                          "width": 0,
+                          "height": 0,
+                          "iconFontFamily": "Material Symbols Rounded",
+                          "fill": "#FAFAF7"
+                        },
+                        {
+                          "type": "text",
+                          "id": "2TAYF",
+                          "name": "newBtnText",
+                          "fill": "#FAFAF7",
+                          "content": "New Entry",
+                          "fontFamily": "Inter",
+                          "fontSize": 12,
+                          "fontWeight": "600"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "OLyN6",
+                      "name": "searchBtn",
+                      "gap": 8,
+                      "padding": [
+                        10,
+                        16
+                      ],
+                      "children": [
+                        {
+                          "type": "icon_font",
+                          "id": "4muUi",
+                          "name": "searchBtnIcon",
+                          "width": 0,
+                          "height": 0,
+                          "iconFontFamily": "Material Symbols Rounded",
+                          "fill": "#0F0F0F"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "G6MJv",
+              "name": "Main Grid",
+              "width": "fill_container",
+              "gap": 48,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "PTJhu",
+                  "name": "Feed Column",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 40,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "Y0Rln",
+                      "name": "Article Card 1",
+                      "width": "fill_container",
+                      "fill": "#FFFFFF",
+                      "layout": "vertical",
+                      "gap": 16,
+                      "padding": 32,
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "fSSUA",
+                          "name": "Cover",
+                          "width": "fill_container",
+                          "height": 240,
+                          "fill": {
+                            "type": "image",
+                            "enabled": true,
+                            "url": "./images/generated-1772208660256.png",
+                            "mode": "fill"
+                          }
+                        },
+                        {
+                          "type": "text",
+                          "id": "jW5Te",
+                          "name": "c1Meta",
+                          "fill": "#999999",
+                          "content": "DESIGN • 4 MIN READ",
+                          "fontFamily": "Inter",
+                          "fontSize": 11,
+                          "fontWeight": "600",
+                          "letterSpacing": 0.5
+                        },
+                        {
+                          "type": "text",
+                          "id": "u3RSt",
+                          "name": "c1Title",
+                          "fill": "#0F0F0F",
+                          "content": "Editorial Precision in the Digital Age",
+                          "fontFamily": "Cormorant Garamond",
+                          "fontSize": 28,
+                          "fontWeight": "500",
+                          "letterSpacing": -1
+                        },
+                        {
+                          "type": "text",
+                          "id": "BUj8i",
+                          "name": "c1Desc",
+                          "fill": "#666666",
+                          "content": "How Swiss design principles and print typography are making a resurgence in modern dashboard and web application design.",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "frame",
+                          "id": "xYfWT",
+                          "name": "c1Footer",
+                          "width": "fill_container",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "EyCa5",
+                              "name": "c1Author",
+                              "fill": "#0F0F0F",
+                              "content": "Elena Rostova",
+                              "fontFamily": "Inter",
+                              "fontSize": 13,
+                              "fontWeight": "500"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "HaLIP",
+                      "name": "Article Card 2",
+                      "width": "fill_container",
+                      "fill": "#FFFFFF",
+                      "layout": "vertical",
+                      "gap": 16,
+                      "padding": 32,
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "cX1DO",
+                          "name": "Cover",
+                          "width": "fill_container",
+                          "height": 240,
+                          "fill": {
+                            "type": "image",
+                            "enabled": true,
+                            "url": "./images/generated-1772208670071.png",
+                            "mode": "fill"
+                          }
+                        },
+                        {
+                          "type": "text",
+                          "id": "Khmvg",
+                          "name": "c2Meta",
+                          "fill": "#999999",
+                          "content": "ENGINEERING • 8 MIN READ",
+                          "fontFamily": "Inter",
+                          "fontSize": 11,
+                          "fontWeight": "600",
+                          "letterSpacing": 0.5
+                        },
+                        {
+                          "type": "text",
+                          "id": "qZkWK",
+                          "name": "c2Title",
+                          "fill": "#0F0F0F",
+                          "content": "Architecting for Scale with Edge Computing",
+                          "fontFamily": "Cormorant Garamond",
+                          "fontSize": 28,
+                          "fontWeight": "500",
+                          "letterSpacing": -1
+                        },
+                        {
+                          "type": "text",
+                          "id": "JlG5R",
+                          "name": "c2Desc",
+                          "fill": "#666666",
+                          "content": "A deep dive into distributed systems and how moving compute to the edge drastically reduces latency for global applications.",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "LcRxO",
+                          "name": "c2Author",
+                          "fill": "#0F0F0F",
+                          "content": "Michael Chen",
+                          "fontFamily": "Inter",
+                          "fontSize": 13,
+                          "fontWeight": "500"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "Tg03x",
+                  "name": "Right Column",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 40,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "7tIoK",
+                      "name": "Trending Section",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 24,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "KAg4j",
+                          "name": "trendTitle",
+                          "fill": "#0F0F0F",
+                          "content": "Trending Now",
+                          "fontFamily": "Cormorant Garamond",
+                          "fontSize": 28,
+                          "fontWeight": "500",
+                          "letterSpacing": -1
+                        },
+                        {
+                          "type": "frame",
+                          "id": "cQNBD",
+                          "name": "trendList",
+                          "width": "fill_container",
+                          "layout": "vertical",
+                          "gap": 16,
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "8eEAW",
+                              "name": "t1",
+                              "fill": "#0F0F0F",
+                              "content": "1. The End of Flat Design",
+                              "fontFamily": "Inter",
+                              "fontSize": 14,
+                              "fontWeight": "500"
+                            },
+                            {
+                              "type": "text",
+                              "id": "LpQaj",
+                              "name": "t2",
+                              "fill": "#0F0F0F",
+                              "content": "2. AI Automation Workflows",
+                              "fontFamily": "Inter",
+                              "fontSize": 14,
+                              "fontWeight": "500"
+                            },
+                            {
+                              "type": "text",
+                              "id": "YE8rb",
+                              "name": "t3",
+                              "fill": "#0F0F0F",
+                              "content": "3. Minimalist Codebases",
+                              "fontFamily": "Inter",
+                              "fontSize": 14,
+                              "fontWeight": "500"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "lxgij",
+                      "name": "Categories",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 24,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "LpmWk",
+                          "name": "tagTitle",
+                          "fill": "#0F0F0F",
+                          "content": "Topics",
+                          "fontFamily": "Cormorant Garamond",
+                          "fontSize": 28,
+                          "fontWeight": "500",
+                          "letterSpacing": -1
+                        },
+                        {
+                          "type": "frame",
+                          "id": "EPYyF",
+                          "name": "tagList",
+                          "width": "fill_container",
+                          "gap": 8,
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "q51Km",
+                              "name": "tag1",
+                              "padding": [
+                                4,
+                                8
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "dKfue",
+                                  "name": "tag1T",
+                                  "fill": "#666666",
+                                  "content": "Design Systems",
+                                  "fontFamily": "Inter",
+                                  "fontSize": 11,
+                                  "fontWeight": "500"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "8F9RG",
+      "x": 0,
+      "y": 3839,
+      "name": "Login Page",
+      "width": 1440,
+      "height": 1024,
+      "fill": "#FAFAF7",
+      "layout": "vertical",
+      "children": [
+        {
+          "type": "frame",
+          "id": "YItiK",
+          "name": "Login Modal",
+          "width": 480,
+          "fill": "#FFFFFF",
+          "layout": "vertical",
+          "gap": 32,
+          "padding": 48,
+          "children": [
+            {
+              "type": "frame",
+              "id": "VuC60",
+              "name": "loginHeader",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 8,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "DFuXg",
+                  "name": "loginTitle",
+                  "fill": "#0F0F0F",
+                  "content": "Welcome Back",
+                  "fontFamily": "Cormorant Garamond",
+                  "fontSize": 48,
+                  "fontWeight": "500",
+                  "letterSpacing": -2
+                },
+                {
+                  "type": "text",
+                  "id": "rHm24",
+                  "name": "loginSub",
+                  "fill": "#666666",
+                  "content": "Enter your details to access the platform.",
+                  "fontFamily": "Inter",
+                  "fontSize": 14
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "3xtBZ",
+              "name": "form",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 24,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "5JVsd",
+                  "name": "googleBtn",
+                  "width": "fill_container",
+                  "fill": "#FFFFFF",
+                  "gap": 8,
+                  "padding": [
+                    12,
+                    16
+                  ],
+                  "children": [
+                    {
+                      "type": "icon_font",
+                      "id": "VScC2",
+                      "name": "gIcon",
+                      "width": 0,
+                      "height": 0,
+                      "iconFontFamily": "Material Symbols Rounded",
+                      "fill": "#0F0F0F"
+                    },
+                    {
+                      "type": "text",
+                      "id": "w9TCg",
+                      "name": "gTxt",
+                      "fill": "#0F0F0F",
+                      "content": "Continue with Google",
+                      "fontFamily": "Inter",
+                      "fontSize": 13,
+                      "fontWeight": "500"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "JgHs7",
+      "x": 0,
+      "y": 1029,
+      "name": "Post Detail Page",
+      "width": 1440,
+      "fill": "#FAFAF7",
+      "children": [
+        {
+          "type": "frame",
+          "id": "7oyDy",
+          "name": "Content Area",
+          "width": "fill_container",
+          "layout": "vertical",
+          "gap": 48,
+          "padding": [
+            40,
+            200
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "1HpsU",
+              "name": "postHeader",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 24,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "4BDRm",
+                  "name": "postMeta",
+                  "fill": "#999999",
+                  "content": "DESIGN • 4 MIN READ",
+                  "fontFamily": "Inter",
+                  "fontSize": 11,
+                  "fontWeight": "600",
+                  "letterSpacing": 0.5
+                },
+                {
+                  "type": "text",
+                  "id": "cs8rt",
+                  "name": "postTitle",
+                  "fill": "#0F0F0F",
+                  "content": "Editorial Precision in the Digital Age",
+                  "fontFamily": "Cormorant Garamond",
+                  "fontSize": 64,
+                  "fontWeight": "500",
+                  "letterSpacing": -2
+                },
+                {
+                  "type": "frame",
+                  "id": "JBPs2",
+                  "name": "postAuthorBar",
+                  "gap": 16,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "tS2Us",
+                      "name": "authorAvatar",
+                      "width": 40,
+                      "height": 40,
+                      "fill": "#E0E0E0",
+                      "cornerRadius": 20
+                    },
+                    {
+                      "type": "text",
+                      "id": "cHKKq",
+                      "name": "authorName",
+                      "fill": "#0F0F0F",
+                      "content": "Elena Rostova",
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "500"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "LHqD9",
+              "name": "Cover Image",
+              "width": "fill_container",
+              "height": 400,
+              "fill": {
+                "type": "image",
+                "enabled": true,
+                "url": "./images/generated-1772209192805.png",
+                "mode": "fill"
+              }
+            },
+            {
+              "type": "frame",
+              "id": "tHJFG",
+              "name": "articleBody",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 32,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "vuYWJ",
+                  "name": "p1",
+                  "fill": "#0F0F0F",
+                  "content": "With the overwhelming shift towards utility-driven digital interfaces over the past decade, a quiet but resolute resistance has formed. Designers are returning to the foundational principles of print, specifically the rigorous grace found in Swiss typographic heritage.",
+                  "fontFamily": "Inter",
+                  "fontSize": 16
+                },
+                {
+                  "type": "text",
+                  "id": "LrfET",
+                  "name": "p2",
+                  "fill": "#0F0F0F",
+                  "content": "Rather than relying entirely on dropshadows or subtle gradient washes to differentiate depth, this approach leverages dramatic scale contrast and strictly enforced grids.",
+                  "fontFamily": "Inter",
+                  "fontSize": 16
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "mRTjJ",
+      "x": 0,
+      "y": -626,
+      "name": "User Profile Page",
+      "width": 1440,
+      "height": 1024,
+      "fill": "#FAFAF7",
+      "children": [
+        {
+          "type": "frame",
+          "id": "FkT35",
+          "name": "Profile Content",
+          "width": "fill_container",
+          "layout": "vertical",
+          "gap": 48,
+          "padding": [
+            40,
+            56
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "RBwVB",
+              "name": "Header",
+              "width": "fill_container",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "GtsUl",
+                  "name": "pTitle",
+                  "fill": "#0F0F0F",
+                  "content": "Profile & Settings",
+                  "fontFamily": "Cormorant Garamond",
+                  "fontSize": 48,
+                  "fontWeight": "500",
+                  "letterSpacing": -2
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "kXUen",
+              "name": "pGrid",
+              "width": "fill_container",
+              "gap": 48,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "AV1S6",
+                  "name": "pLeft",
+                  "width": 340,
+                  "layout": "vertical",
+                  "gap": 32,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "jG53i",
+                      "name": "pAvatar",
+                      "width": 120,
+                      "height": 120,
+                      "fill": {
+                        "type": "image",
+                        "enabled": true,
+                        "url": "./images/generated-1772209329664.png",
+                        "mode": "fill"
+                      },
+                      "cornerRadius": 60
+                    },
+                    {
+                      "type": "text",
+                      "id": "0vPxG",
+                      "name": "pName",
+                      "fill": "#0F0F0F",
+                      "content": "Elena Rostova",
+                      "fontFamily": "Inter",
+                      "fontSize": 24,
+                      "fontWeight": "500"
+                    },
+                    {
+                      "type": "text",
+                      "id": "mQrvu",
+                      "name": "pBio",
+                      "fill": "#666666",
+                      "content": "Design Systems Lead at Vercel. Writing about the intersection of engineering and design.",
+                      "fontFamily": "Inter",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "Wmouh",
+                      "name": "pStats",
+                      "gap": 32,
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "dJ7Ex",
+                          "name": "stat1",
+                          "layout": "vertical",
+                          "gap": 4,
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "aYJGX",
+                              "name": "s1Val",
+                              "fill": "#0F0F0F",
+                              "content": "42",
+                              "fontFamily": "Cormorant Garamond",
+                              "fontSize": 28,
+                              "fontWeight": "500"
+                            },
+                            {
+                              "type": "text",
+                              "id": "22R1u",
+                              "name": "s1Lbl",
+                              "fill": "#999999",
+                              "content": "ARTICLES",
+                              "fontFamily": "Inter",
+                              "fontSize": 11,
+                              "fontWeight": "600"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "lDm2Z",
+                          "name": "stat2",
+                          "layout": "vertical",
+                          "gap": 4,
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "2Qc61",
+                              "name": "s2Val",
+                              "fill": "#0F0F0F",
+                              "content": "12.4K",
+                              "fontFamily": "Cormorant Garamond",
+                              "fontSize": 28,
+                              "fontWeight": "500"
+                            },
+                            {
+                              "type": "text",
+                              "id": "S8o4w",
+                              "name": "s2Lbl",
+                              "fill": "#999999",
+                              "content": "FOLLOWERS",
+                              "fontFamily": "Inter",
+                              "fontSize": 11,
+                              "fontWeight": "600"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "nOn79",
+                  "name": "pRight",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 40,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "abqLO",
+                      "name": "pTabs",
+                      "gap": 32,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "6ATXt",
+                          "name": "t1",
+                          "fill": "#0F0F0F",
+                          "content": "Published",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "500"
+                        },
+                        {
+                          "type": "text",
+                          "id": "vANam",
+                          "name": "t2",
+                          "fill": "#999999",
+                          "content": "Drafts",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "500"
+                        },
+                        {
+                          "type": "text",
+                          "id": "eVQZH",
+                          "name": "t3",
+                          "fill": "#999999",
+                          "content": "Bookmarks",
+                          "fontFamily": "Inter",
+                          "fontSize": 14,
+                          "fontWeight": "500"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "gJeMA",
+                      "name": "pArticleList",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 24,
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "QVZOm",
+                          "name": "pArticle1",
+                          "width": "fill_container",
+                          "layout": "vertical",
+                          "gap": 8,
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "ztNXJ",
+                              "name": "pa1Meta",
+                              "fill": "#999999",
+                              "content": "DESIGN • OCT 12",
+                              "fontFamily": "Inter",
+                              "fontSize": 11,
+                              "fontWeight": "600",
+                              "letterSpacing": 0.5
+                            },
+                            {
+                              "type": "text",
+                              "id": "ya2iF",
+                              "name": "pa1Title",
+                              "fill": "#0F0F0F",
+                              "content": "Editorial Precision in the Digital Age",
+                              "fontFamily": "Cormorant Garamond",
+                              "fontSize": 24,
+                              "fontWeight": "500"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "gsfGL",
+                          "name": "pArticle2",
+                          "width": "fill_container",
+                          "layout": "vertical",
+                          "gap": 8,
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "umjMm",
+                              "name": "pa2Meta",
+                              "fill": "#999999",
+                              "content": "ENGINEERING • SEP 28",
+                              "fontFamily": "Inter",
+                              "fontSize": 11,
+                              "fontWeight": "600",
+                              "letterSpacing": 0.5
+                            },
+                            {
+                              "type": "text",
+                              "id": "Ndtxl",
+                              "name": "pa2Title",
+                              "fill": "#0F0F0F",
+                              "content": "The Renaissance of System Fonts",
+                              "fontFamily": "Cormorant Garamond",
+                              "fontSize": 24,
+                              "fontWeight": "500"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
     }
   ]
 }
