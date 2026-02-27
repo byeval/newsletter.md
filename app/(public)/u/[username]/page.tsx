@@ -20,12 +20,15 @@ export default async function UserHomePage({ params }: PageProps) {
   }
   const themeConfig = await getActiveThemeConfigByUserId(user.id);
   const brand = typeof themeConfig.brand === "string" ? themeConfig.brand : null;
+  const logo = typeof themeConfig.logo === "string" ? themeConfig.logo : null;
   const primaryColor = typeof themeConfig.primary_color === "string" ? themeConfig.primary_color : null;
+  const socialLinks = Array.isArray(themeConfig.social_links) ? themeConfig.social_links : [];
   const posts = await listPublishedPostsByUserId(user.id);
   return (
     <main>
       <h1 style={primaryColor ? { color: primaryColor } : undefined}>@{params.username}</h1>
       {brand ? <p>{brand}</p> : null}
+      {logo ? <img src={logo} alt="Logo" /> : null}
       <ul>
         {posts.map((post) => (
           <li key={post.id}>
@@ -33,6 +36,17 @@ export default async function UserHomePage({ params }: PageProps) {
           </li>
         ))}
       </ul>
+      {socialLinks.length ? (
+        <footer>
+          <ul>
+            {socialLinks.map((link, index) => (
+              <li key={`${link?.url ?? ""}-${index}`}>
+                <a href={link?.url ?? "#"}>{link?.label ?? "Link"}</a>
+              </li>
+            ))}
+          </ul>
+        </footer>
+      ) : null}
     </main>
   );
 }
