@@ -74,7 +74,6 @@ export type DbPost = {
   markdown: string;
   html: string;
   status: string;
-  pinned: number;
   created_at: string;
   updated_at: string;
   published_at: string | null;
@@ -103,6 +102,14 @@ export async function listPosts(userId: string): Promise<DbPost[]> {
   return result.results ?? [];
 }
 
+export async function getPostById(id: string, userId: string): Promise<DbPost | null> {
+  const db = getDb();
+  if (!db) return null;
+  const stmt = db.prepare("SELECT * FROM posts WHERE id = ? AND user_id = ? LIMIT 1");
+  const result = await stmt.bind(id, userId).first<DbPost>();
+  return result ?? null;
+}
+
 export async function listPublishedPostsByUserId(userId: string): Promise<DbPost[]> {
   const db = getDb();
   if (!db) return [];
@@ -117,7 +124,7 @@ export async function createPost(post: DbPost): Promise<void> {
   const db = getDb();
   if (!db) return;
   const stmt = db.prepare(
-    "INSERT INTO posts (id, user_id, title, slug, cover_url, markdown, html, status, pinned, created_at, updated_at, published_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+    "INSERT INTO posts (id, user_id, title, slug, cover_url, markdown, html, status, created_at, updated_at, published_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
   );
   await stmt
     .bind(
@@ -129,7 +136,6 @@ export async function createPost(post: DbPost): Promise<void> {
       post.markdown,
       post.html,
       post.status,
-      post.pinned,
       post.created_at,
       post.updated_at,
       post.published_at
@@ -141,7 +147,7 @@ export async function updatePost(post: DbPost): Promise<void> {
   const db = getDb();
   if (!db) return;
   const stmt = db.prepare(
-    "UPDATE posts SET title = ?, slug = ?, cover_url = ?, markdown = ?, html = ?, status = ?, pinned = ?, updated_at = ?, published_at = ? WHERE id = ? AND user_id = ?"
+    "UPDATE posts SET title = ?, slug = ?, cover_url = ?, markdown = ?, html = ?, status = ?, updated_at = ?, published_at = ? WHERE id = ? AND user_id = ?"
   );
   await stmt
     .bind(
@@ -151,7 +157,6 @@ export async function updatePost(post: DbPost): Promise<void> {
       post.markdown,
       post.html,
       post.status,
-      post.pinned,
       post.updated_at,
       post.published_at,
       post.id,

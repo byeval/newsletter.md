@@ -12,7 +12,6 @@ export async function PUT(request: Request, context: { params: { id: string } })
   const now = new Date().toISOString();
   const markdown = typeof body.markdown === "string" ? body.markdown : "";
   const coverUrl = typeof body.cover_url === "string" ? body.cover_url : null;
-  const pinned = body.pinned === "1" || body.pinned === "true" ? 1 : 0;
   const html = renderMarkdown(markdown);
   const slug = typeof body.slug === "string" ? body.slug : body.title.toLowerCase().replace(/\s+/g, "-");
   const status = typeof body.status === "string" ? body.status : "draft";
@@ -26,7 +25,6 @@ export async function PUT(request: Request, context: { params: { id: string } })
     markdown,
     html,
     status,
-    pinned,
     created_at: now,
     updated_at: now,
     published_at: publishedAt,

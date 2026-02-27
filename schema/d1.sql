@@ -19,7 +19,6 @@ CREATE TABLE IF NOT EXISTS posts (
   markdown TEXT NOT NULL,
   html TEXT NOT NULL,
   status TEXT NOT NULL,
-  pinned INTEGER NOT NULL DEFAULT 0,
   created_at TEXT NOT NULL,
   updated_at TEXT NOT NULL,
   published_at TEXT,
