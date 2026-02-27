@@ -15,6 +15,12 @@ async function getThemes(): Promise<Theme[]> {
   return data.themes ?? [];
 }
 
+async function getActiveThemeId(): Promise<string | null> {
+  const res = await fetch("/api/themes/active", { cache: "no-store" });
+  const data = (await res.json()) as { theme_id?: string | null };
+  return data.theme_id ?? null;
+}
+
 async function getThemeSchema(themeId: string): Promise<ThemeSchema | null> {
   const res = await fetch(`/api/themes/${themeId}`, { cache: "no-store" });
   if (!res.ok) return null;
@@ -23,6 +29,7 @@ async function getThemeSchema(themeId: string): Promise<ThemeSchema | null> {
 
 export default async function ThemesPage() {
   const themes = await getThemes();
+  const activeThemeId = await getActiveThemeId();
   const schemaById = new Map<string, ThemeSchema>();
   for (const theme of themes) {
     const schema = await getThemeSchema(theme.id);
@@ -42,6 +49,7 @@ export default async function ThemesPage() {
         {themes.map((theme) => (
           <li key={theme.id}>
             {theme.name} ({theme.slug}) v{theme.version}
+            {activeThemeId === theme.id ? " (active)" : null}
             <form method="post" action="/api/themes/config">
               <input name="theme_id" type="hidden" value={theme.id} />
               {Object.entries(schemaById.get(theme.id)?.settings ?? {}).map(([key, value]) => (
