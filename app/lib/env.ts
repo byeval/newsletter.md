@@ -1,7 +1,6 @@
 export type Env = {
   DB: D1Database;
   BUCKET: R2Bucket;
-  THEME_KV: KVNamespace;
   AUTH_SECRET: string;
   GOOGLE_CLIENT_ID: string;
   SEND_EMAIL: {

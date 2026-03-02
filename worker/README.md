@@ -4,7 +4,7 @@ This Worker serves both API and public rendering.
 
 ## Responsibilities
 - Auth endpoints
-- CRUD endpoints for posts/pages/themes
+- CRUD endpoints for posts and subscribers
 - SSR rendering for public pages
 - R2 signed uploads
 - D1 data access

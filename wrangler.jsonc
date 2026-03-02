@@ -14,12 +14,7 @@
       "bucket_name": "letters"
     }
   ],
-  "kv_namespaces": [
-    {
-      "binding": "THEME_KV",
-      "id": ""
-    }
-  ],
+  "kv_namespaces": [],
   "vars": {
     "EMAIL_FROM": "no-reply@newsletter.md",
     "BASE_URL": "https://newsletter.md"

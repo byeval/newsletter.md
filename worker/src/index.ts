@@ -4,7 +4,6 @@ type Env = {
   Bindings: {
     DB: D1Database;
     BUCKET: R2Bucket;
-    THEME_KV: KVNamespace;
   };
 };
 
@@ -32,26 +31,6 @@ app.post("/api/username/claim", async (c) => {
     return c.json({ error: "Invalid payload" }, 400);
   }
   return c.json({ username: body.username });
-});
-
-app.get("/api/themes", (c) => {
-  return c.json({ themes: [] });
-});
-
-app.post("/api/themes/activate", async (c) => {
-  const body = await c.req.json().catch(() => null);
-  if (!body || typeof body.theme_id !== "string") {
-    return c.json({ error: "Invalid payload" }, 400);
-  }
-  return c.json({ theme_id: body.theme_id, active: true });
-});
-
-app.put("/api/themes/config", async (c) => {
-  const body = await c.req.json().catch(() => null);
-  if (!body || typeof body.theme_id !== "string") {
-    return c.json({ error: "Invalid payload" }, 400);
-  }
-  return c.json({ theme_id: body.theme_id, config_values: body.config_values ?? {} });
 });
 
 app.get("/api/posts", (c) => {

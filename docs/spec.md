@@ -14,14 +14,13 @@ This document defines the initial architecture, API surface, data model, and rep
 
 ## Non-Goals (MVP)
 - Custom domains
-- Paid themes
 - Advanced analytics
 
 ## Stack
 - Runtime: Cloudflare Workers (vinext)
 - Framework: vinext (Next.js API surface on Vite)
 - Database: Cloudflare D1 (SQLite)
-- Storage: Cloudflare R2 (uploads, theme assets)
+- Storage: Cloudflare R2 (uploads)
 - Cache: Cloudflare Cache API (public pages)
 - Auth: Google OAuth + signed session cookie
 
@@ -70,6 +69,5 @@ This document defines the initial architecture, API surface, data model, and rep
 1. Google login
 2. Username claim
 3. Markdown editor + post publishing
-4. Public SSR rendering (one default theme)
-5. Basic theme config UI
+4. Public SSR rendering
 6. R2 uploads for images
