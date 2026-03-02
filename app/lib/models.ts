@@ -74,7 +74,6 @@ export type DbPost = {
   markdown: string;
   html: string;
   status: string;
-  pinned: number;
   created_at: string;
   updated_at: string;
   published_at: string | null;
@@ -115,9 +114,7 @@ export async function getPostById(userId: string, postId: string): Promise<DbPos
 export async function listPosts(userId: string): Promise<DbPost[]> {
   const db = getDb();
   if (!db) return [];
-  const stmt = db.prepare(
-    "SELECT * FROM posts WHERE user_id = ? ORDER BY pinned DESC, updated_at DESC"
-  );
+  const stmt = db.prepare("SELECT * FROM posts WHERE user_id = ? ORDER BY updated_at DESC");
   const result = await stmt.bind(userId).all<DbPost>();
   return result.results ?? [];
 }
