@@ -9,6 +9,8 @@ This document defines the initial architecture, API surface, data model, and rep
 - Markdown editor + publish flow
 - Deploy on Cloudflare Workers + D1 + R2
 - Google OAuth login
+- Newsletter subscriptions
+- Email delivery on publish (Cloudflare Email Service)
 
 ## Non-Goals (MVP)
 - Custom domains
@@ -35,17 +37,16 @@ This document defines the initial architecture, API surface, data model, and rep
 - `POST /api/auth/google` exchange Google token and issue session
 - `POST /api/username/claim` claim `username`
 - `GET /api/me` current user
-- `GET /api/themes` marketplace list
-- `GET /api/themes/:id` fetch theme schema
-- `GET /api/themes/active` current active theme
-- `POST /api/themes/activate` activate theme
-- `PUT /api/themes/config` update theme config
 - `GET /api/posts` list posts
 - `POST /api/posts` create post
 - `PUT /api/posts/:id` update post
 - `POST /api/uploads` get upload URL
 - `PUT /api/uploads?key=...` upload to R2
 - `GET /r2/*` serve R2 assets
+- `POST /api/subscribe` add subscriber
+- `GET /api/subscribers` list subscribers (owner)
+- `GET /api/subscribe/unsubscribe?token=...` unsubscribe
+- `GET /unsubscribe?token=...` unsubscribe page
 
 ## Auth
 - Google OAuth (server-side exchange)
@@ -59,6 +60,7 @@ This document defines the initial architecture, API surface, data model, and rep
 
 ## Content Model
 - Single content type: posts
+- Subscribers list per author
 
 ## Caching
 - Cache public pages using Cache API

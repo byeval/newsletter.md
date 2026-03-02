@@ -64,10 +64,6 @@ Response:
 Errors:
 - `409` if username already taken
 
-## Themes
-
-
-
 ## Posts
 
 ### GET /api/posts
@@ -140,5 +136,48 @@ Response:
   "upload_url": "https://...",
   "key": "uploads/user/cover.png",
   "public_url": "https://cdn.newsletter.md/...."
+}
+```
+
+## Subscribers
+
+### POST /api/subscribe
+Request:
+```
+{
+  "username": "jane",
+  "email": "reader@example.com",
+  "name": "Reader"
+}
+```
+
+Response:
+```
+{
+  "success": true
+}
+```
+
+### GET /api/subscribers
+Response:
+```
+{
+  "subscribers": [
+    {
+      "id": "uuid",
+      "email": "reader@example.com",
+      "name": "Reader",
+      "status": "active",
+      "created_at": "2026-02-27T00:00:00Z"
+    }
+  ]
+}
+```
+
+### GET /api/subscribe/unsubscribe?token=...
+Response:
+```
+{
+  "success": true
 }
 ```
