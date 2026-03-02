@@ -1,4 +1,5 @@
 import UploadWidget from "./UploadWidget";
+import TiptapEditor from "./TiptapEditor";
 
 type PageProps = {
   searchParams: { id?: string };
@@ -37,28 +38,16 @@ export default async function EditorPage({ searchParams }: PageProps) {
         action={actionUrl}
         style={{ background: "transparent", border: "none", boxShadow: "none", padding: 0 }}
         className="flex flex-col md:flex-row gap-6"
-        onSubmit={(e) => {
-          if (isEditing) {
-            e.preventDefault();
-            const form = e.currentTarget;
-            fetch(form.action, {
-              method: "PUT",
-              body: new FormData(form),
-            }).then(() => {
-              window.location.href = "/admin/posts";
-            });
-          }
-        }}
       >
         <div className="card flex-col flex-1" style={{ minWidth: "0" }}>
           <label>
             Title
             <input name="title" type="text" style={{ fontSize: "1.25rem", fontWeight: "bold" }} defaultValue={post?.title ?? ""} placeholder="Post title..." required />
           </label>
-          <label className="mt-4" style={{ height: "100%", display: "flex", flexDirection: "column" }}>
-            Markdown Content
-            <textarea name="markdown" style={{ minHeight: "500px", fontFamily: "SFMono-Regular, Consolas, Monaco, monospace", resize: "vertical" }} defaultValue={post?.markdown ?? ""} placeholder="Write your post content using Markdown..." required />
-          </label>
+          <div className="mt-4 flex flex-col flex-1" style={{ minHeight: "500px" }}>
+            <span className="mb-2 font-medium">Markdown Content</span>
+            <TiptapEditor defaultValue={post?.markdown ?? ""} />
+          </div>
         </div>
 
         <div className="flex flex-col gap-6" style={{ width: "100%", maxWidth: "320px", flexShrink: 0 }}>

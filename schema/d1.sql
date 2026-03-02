@@ -26,8 +26,6 @@ CREATE TABLE IF NOT EXISTS posts (
   FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
-
-
 CREATE TABLE IF NOT EXISTS uploads (
   id TEXT PRIMARY KEY,
   user_id TEXT NOT NULL,
