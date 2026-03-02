@@ -45,6 +45,7 @@ CREATE TABLE IF NOT EXISTS subscribers (
   name TEXT,
   status TEXT NOT NULL,
   created_at TEXT NOT NULL,
+  confirm_token TEXT NOT NULL,
   unsubscribe_token TEXT NOT NULL,
   UNIQUE(user_id, email),
   FOREIGN KEY (user_id) REFERENCES users(id)

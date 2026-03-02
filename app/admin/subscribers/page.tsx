@@ -18,6 +18,7 @@ export default async function SubscribersPage() {
     <main className="mt-6">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-3xl font-bold mb-0">Subscribers</h1>
+        <a href="/admin/subscribers/export" className="btn btn-outline">Export CSV</a>
       </div>
 
       {subscribers.length === 0 ? (

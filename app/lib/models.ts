@@ -87,6 +87,7 @@ export type DbSubscriber = {
   name: string | null;
   status: string;
   created_at: string;
+  confirm_token: string;
   unsubscribe_token: string;
 };
 
@@ -190,7 +191,7 @@ export async function addSubscriber(data: DbSubscriber): Promise<boolean> {
   try {
     await db
       .prepare(
-        "INSERT INTO subscribers (id, user_id, email, name, status, created_at, unsubscribe_token) VALUES (?, ?, ?, ?, ?, ?, ?)"
+        "INSERT INTO subscribers (id, user_id, email, name, status, created_at, confirm_token, unsubscribe_token) VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
       )
       .bind(
         data.id,
@@ -199,6 +200,7 @@ export async function addSubscriber(data: DbSubscriber): Promise<boolean> {
         data.name,
         data.status,
         data.created_at,
+        data.confirm_token,
         data.unsubscribe_token
       )
       .run();
@@ -229,6 +231,16 @@ export async function unsubscribeByToken(token: string): Promise<boolean> {
   if (!db) return false;
   const result = await db
     .prepare("UPDATE subscribers SET status = 'unsubscribed' WHERE unsubscribe_token = ?")
+    .bind(token)
+    .run();
+  return (result.changes ?? 0) > 0;
+}
+
+export async function confirmSubscriber(token: string): Promise<boolean> {
+  const db = getDb();
+  if (!db) return false;
+  const result = await db
+    .prepare("UPDATE subscribers SET status = 'active' WHERE confirm_token = ?")
     .bind(token)
     .run();
   return (result.changes ?? 0) > 0;
