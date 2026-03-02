@@ -1,5 +1,6 @@
 import UploadWidget from "./UploadWidget";
 import TiptapEditor from "./TiptapEditor";
+import { cookies, headers } from "next/headers";
 
 type PageProps = {
   searchParams: { id?: string };
@@ -17,7 +18,16 @@ type Post = {
 export default async function EditorPage({ searchParams }: PageProps) {
   let post: Post | null = null;
   if (searchParams.id) {
-    const res = await fetch(`/api/posts/${searchParams.id}`, { cache: "no-store" });
+    const host = headers().get("host");
+    const protocol = process.env.NODE_ENV === "development" ? "http" : "https";
+    const cookieHeader = cookies()
+      .getAll()
+      .map((cookie) => `${cookie.name}=${cookie.value}`)
+      .join("; ");
+    const res = await fetch(`${protocol}://${host}/api/posts/${searchParams.id}`, {
+      cache: "no-store",
+      headers: { cookie: cookieHeader },
+    });
     const data = await res.json() as { post?: Post | null };
     post = data.post ?? null;
   }

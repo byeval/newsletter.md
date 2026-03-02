@@ -18,5 +18,14 @@ export type Env = {
 };
 
 export function getEnv(): Partial<Env> {
-  return (globalThis as unknown as { env?: Partial<Env> }).env ?? {};
+  const globalEnv = (globalThis as unknown as { env?: Partial<Env> }).env ?? {};
+  const processEnv = (typeof process !== "undefined" ? process.env : {}) as Record<string, string | undefined>;
+  return {
+    ...globalEnv,
+    AUTH_SECRET: globalEnv.AUTH_SECRET ?? processEnv.AUTH_SECRET,
+    GOOGLE_CLIENT_ID: globalEnv.GOOGLE_CLIENT_ID ?? processEnv.GOOGLE_CLIENT_ID,
+    GOOGLE_REDIRECT_URI: globalEnv.GOOGLE_REDIRECT_URI ?? processEnv.GOOGLE_REDIRECT_URI,
+    EMAIL_FROM: globalEnv.EMAIL_FROM ?? processEnv.EMAIL_FROM,
+    BASE_URL: globalEnv.BASE_URL ?? processEnv.BASE_URL,
+  } as Partial<Env>;
 }
