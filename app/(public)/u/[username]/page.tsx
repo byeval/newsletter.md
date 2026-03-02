@@ -53,6 +53,23 @@ export default async function UserHomePage({ params }: PageProps) {
         )}
       </div>
 
+      <section className="card mt-12">
+        <h2 className="text-2xl font-bold mb-2">Subscribe</h2>
+        <p className="text-muted mb-6">Get new posts delivered to your inbox.</p>
+        <form method="post" action="/api/subscribe">
+          <input type="hidden" name="username" value={params.username} />
+          <label>
+            Name (optional)
+            <input name="name" type="text" placeholder="Your name" />
+          </label>
+          <label>
+            Email
+            <input name="email" type="email" placeholder="you@example.com" required />
+          </label>
+          <button type="submit">Subscribe</button>
+        </form>
+      </section>
+
     </main>
   );
 }

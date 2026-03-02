@@ -37,3 +37,14 @@ CREATE TABLE IF NOT EXISTS uploads (
   created_at TEXT NOT NULL,
   FOREIGN KEY (user_id) REFERENCES users(id)
 );
+
+CREATE TABLE IF NOT EXISTS subscribers (
+  id TEXT PRIMARY KEY,
+  user_id TEXT NOT NULL,
+  email TEXT NOT NULL,
+  name TEXT,
+  status TEXT NOT NULL,
+  created_at TEXT NOT NULL,
+  UNIQUE(user_id, email),
+  FOREIGN KEY (user_id) REFERENCES users(id)
+);

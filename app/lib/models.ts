@@ -80,6 +80,15 @@ export type DbPost = {
   published_at: string | null;
 };
 
+export type DbSubscriber = {
+  id: string;
+  user_id: string;
+  email: string;
+  name: string | null;
+  status: string;
+  created_at: string;
+};
+
 export async function getPublishedPostByUsernameSlug(
   username: string,
   slug: string
@@ -172,4 +181,27 @@ export async function deletePost(postId: string, userId: string): Promise<void> 
   const db = getDb();
   if (!db) return;
   await db.prepare("DELETE FROM posts WHERE id = ? AND user_id = ?").bind(postId, userId).run();
+}
+
+export async function addSubscriber(data: DbSubscriber): Promise<boolean> {
+  const db = getDb();
+  if (!db) return false;
+  try {
+    await db
+      .prepare(
+        "INSERT INTO subscribers (id, user_id, email, name, status, created_at) VALUES (?, ?, ?, ?, ?, ?)"
+      )
+      .bind(
+        data.id,
+        data.user_id,
+        data.email,
+        data.name,
+        data.status,
+        data.created_at
+      )
+      .run();
+    return true;
+  } catch {
+    return false;
+  }
 }
