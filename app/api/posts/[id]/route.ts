@@ -46,15 +46,19 @@ export async function PUT(request: Request, context: { params: { id: string } })
     const env = getEnv();
     const author = await getUserById(session.userId);
     const subscribers = await listActiveSubscribers(session.userId);
-    if (env.BASE_URL && author && subscribers.length > 0) {
+    if (env.BASE_URL && author && author.username && subscribers.length > 0) {
       const postUrl = `${env.BASE_URL}/u/${author.username}/${slug}`;
-      await sendEmail(
-        subscribers.map((subscriber) => ({ email: subscriber.email, name: subscriber.name })),
-        {
-          subject: `${author.name || author.username} published: ${body.title}`,
-          html: `<p>${author.name || author.username} published a new post.</p><p><a href="${postUrl}">${body.title}</a></p>`,
-          text: `${author.name || author.username} published a new post: ${postUrl}`,
-        }
+      await Promise.all(
+        subscribers.map((subscriber) =>
+          sendEmail(
+            [{ email: subscriber.email, name: subscriber.name }],
+            {
+              subject: `${author.name || author.username} published: ${body.title}`,
+              html: `<p>${author.name || author.username} published a new post.</p><p><a href="${postUrl}">${body.title}</a></p><p><a href="${env.BASE_URL}/unsubscribe?token=${subscriber.unsubscribe_token}">Unsubscribe</a></p>`,
+              text: `${author.name || author.username} published a new post: ${postUrl} Unsubscribe: ${env.BASE_URL}/unsubscribe?token=${subscriber.unsubscribe_token}`,
+            }
+          )
+        )
       );
     }
   }

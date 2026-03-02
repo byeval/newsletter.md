@@ -15,6 +15,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
           <nav className="admin-nav">
             <a href="/admin/posts">Posts</a>
             <a href="/admin/editor">Write</a>
+            <a href="/admin/subscribers">Subscribers</a>
             <a href="/admin/profile">Profile</a>
           </nav>
         </div>

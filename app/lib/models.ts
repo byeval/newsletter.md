@@ -87,6 +87,7 @@ export type DbSubscriber = {
   name: string | null;
   status: string;
   created_at: string;
+  unsubscribe_token: string;
 };
 
 export async function getPublishedPostByUsernameSlug(
@@ -189,7 +190,7 @@ export async function addSubscriber(data: DbSubscriber): Promise<boolean> {
   try {
     await db
       .prepare(
-        "INSERT INTO subscribers (id, user_id, email, name, status, created_at) VALUES (?, ?, ?, ?, ?, ?)"
+        "INSERT INTO subscribers (id, user_id, email, name, status, created_at, unsubscribe_token) VALUES (?, ?, ?, ?, ?, ?, ?)"
       )
       .bind(
         data.id,
@@ -197,7 +198,8 @@ export async function addSubscriber(data: DbSubscriber): Promise<boolean> {
         data.email,
         data.name,
         data.status,
-        data.created_at
+        data.created_at,
+        data.unsubscribe_token
       )
       .run();
     return true;
@@ -212,4 +214,22 @@ export async function listActiveSubscribers(userId: string): Promise<DbSubscribe
   const stmt = db.prepare("SELECT * FROM subscribers WHERE user_id = ? AND status = 'active'");
   const result = await stmt.bind(userId).all<DbSubscriber>();
   return result.results ?? [];
+}
+
+export async function listAllSubscribers(userId: string): Promise<DbSubscriber[]> {
+  const db = getDb();
+  if (!db) return [];
+  const stmt = db.prepare("SELECT * FROM subscribers WHERE user_id = ? ORDER BY created_at DESC");
+  const result = await stmt.bind(userId).all<DbSubscriber>();
+  return result.results ?? [];
+}
+
+export async function unsubscribeByToken(token: string): Promise<boolean> {
+  const db = getDb();
+  if (!db) return false;
+  const result = await db
+    .prepare("UPDATE subscribers SET status = 'unsubscribed' WHERE unsubscribe_token = ?")
+    .bind(token)
+    .run();
+  return (result.changes ?? 0) > 0;
 }

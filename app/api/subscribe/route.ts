@@ -20,6 +20,7 @@ export async function POST(request: Request) {
     name: typeof body.name === "string" ? body.name : null,
     status: "active",
     created_at: new Date().toISOString(),
+    unsubscribe_token: crypto.randomUUID(),
   });
 
   if (!ok) return Response.json({ error: "Already subscribed" }, { status: 409 });

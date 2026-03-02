@@ -24,6 +24,14 @@ export default function AdminHomePage() {
 
         <div className="card flex flex-col justify-between">
           <div>
+            <h2 className="text-xl font-bold mb-2">Subscribers</h2>
+            <p className="text-muted mb-6">Track your newsletter audience in one place.</p>
+          </div>
+          <a href="/admin/subscribers" className="btn btn-outline w-full text-center">View Subscribers</a>
+        </div>
+
+        <div className="card flex flex-col justify-between">
+          <div>
             <h2 className="text-xl font-bold mb-2">Profile</h2>
             <p className="text-muted mb-6">Update your username and personal details.</p>
           </div>
