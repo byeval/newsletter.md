@@ -12,7 +12,7 @@ export default async function ProfilePage() {
     <main className="mt-6 mx-auto" style={{ maxWidth: "600px" }}>
       <h1 className="text-3xl font-bold mb-6">Profile Settings</h1>
       
-      <div className="card mb-6 flex flex-col md:flex-row items-center md:items-start gap-6">
+      <div className="card glass mb-6 flex flex-col md:flex-row items-center md:items-start gap-6">
         {user?.avatar_url ? (
           <img src={user.avatar_url} alt="Avatar" className="avatar avatar-lg" />
         ) : (
@@ -31,7 +31,7 @@ export default async function ProfilePage() {
         </div>
       </div>
 
-      <form method="post" action="/api/username/claim" className="card" style={{ padding: "2rem" }}>
+      <form method="post" action="/api/username/claim" className="card glass" style={{ padding: "2rem" }}>
         <h3 className="text-xl font-bold mb-2 m-0">Writer Profile</h3>
         <p className="text-muted mb-6">
           Your username sets your blog address (e.g. yoursite.com/u/username). Once claimed, it uniquely identifies your posts globally.

@@ -56,10 +56,10 @@ export default async function PostPage({ params }: PageProps) {
         dangerouslySetInnerHTML={{ __html: html }} 
       />
 
-      <section className="card mt-12">
-        <h2 className="text-2xl font-bold mb-2">Subscribe</h2>
-        <p className="text-muted mb-6">Get new posts delivered to your inbox.</p>
-        <form method="post" action="/api/subscribe">
+      <section className="card glass mt-16 mt-12 md:mt-24">
+        <h2 className="text-2xl font-bold mb-2 text-center">Subscribe to {user?.name || `@${params.username}`}</h2>
+        <p className="text-muted mb-6 text-center">Get new posts delivered directly to your inbox.</p>
+        <form method="post" action="/api/subscribe" className="bg-transparent border-0 shadow-none p-0 max-w-md mx-auto">
           <input type="hidden" name="username" value={params.username} />
           <label>
             Name (optional)
@@ -69,7 +69,7 @@ export default async function PostPage({ params }: PageProps) {
             Email
             <input name="email" type="email" placeholder="you@example.com" required />
           </label>
-          <button type="submit">Subscribe</button>
+          <button type="submit" className="btn btn-primary w-full mt-2">Subscribe</button>
         </form>
       </section>
 

@@ -32,12 +32,13 @@ export default async function UserHomePage({ params }: PageProps) {
 
       <div className="flex flex-col gap-6">
         {posts.length === 0 ? (
-          <div className="text-center text-muted p-8 border rounded-xl" style={{ borderColor: 'var(--border)' }}>
-            No posts published yet.
+          <div className="card glass text-center text-muted flex flex-col items-center justify-center p-12 gap-4">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-muted opacity-50"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+            <p className="text-lg">No posts published yet.</p>
           </div>
         ) : (
           posts.map((post) => (
-            <div key={post.id} className="card hover:shadow-md" style={{ transition: "box-shadow 0.2s" }}>
+            <div key={post.id} className="card glass hover:translate-y-sm transition-transform">
               <a 
                 href={`/u/${params.username}/${post.slug}`} 
                 className="text-2xl font-bold mb-2 block" 
@@ -53,10 +54,10 @@ export default async function UserHomePage({ params }: PageProps) {
         )}
       </div>
 
-      <section className="card mt-12">
-        <h2 className="text-2xl font-bold mb-2">Subscribe</h2>
-        <p className="text-muted mb-6">Get new posts delivered to your inbox.</p>
-        <form method="post" action="/api/subscribe">
+      <section className="card glass mt-12 bg-primary/5">
+        <h2 className="text-2xl font-bold mb-2 text-center">Subscribe</h2>
+        <p className="text-muted mb-6 text-center">Get new posts delivered to your inbox.</p>
+        <form method="post" action="/api/subscribe" className="bg-transparent border-0 shadow-none p-0">
           <input type="hidden" name="username" value={params.username} />
           <label>
             Name (optional)
@@ -66,7 +67,7 @@ export default async function UserHomePage({ params }: PageProps) {
             Email
             <input name="email" type="email" placeholder="you@example.com" required />
           </label>
-          <button type="submit">Subscribe</button>
+          <button type="submit" className="btn btn-primary w-full md:w-auto self-center mt-2">Subscribe</button>
         </form>
       </section>
 

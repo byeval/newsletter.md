@@ -30,13 +30,15 @@ export default async function PostsPage() {
       </div>
       
       {posts.length === 0 ? (
-        <div className="card text-center text-muted">
-          No posts found. <a href="/admin/editor">Write your first post.</a>
+        <div className="card glass text-center text-muted flex flex-col items-center justify-center p-12 mt-12 gap-4">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-muted opacity-50"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+          <p className="text-lg">No posts found yet.</p>
+          <a href="/admin/editor" className="btn btn-primary mt-2">Write your first post</a>
         </div>
       ) : (
         <div className="flex flex-col gap-4">
           {posts.map((post) => (
-            <div key={post.id} className="card flex flex-col md:flex-row justify-between items-center" style={{ padding: "1rem 1.5rem" }}>
+            <div key={post.id} className="card glass hover:translate-y-sm transition-transform flex flex-col md:flex-row justify-between items-center" style={{ padding: "1rem 1.5rem" }}>
               <div className="w-full">
                 <a href={`/admin/editor?id=${post.id}`} className="text-xl font-bold" style={{ color: "var(--text-color)" }}>
                   {post.title}
