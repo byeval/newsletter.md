@@ -17,6 +17,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
             <a href="/admin/editor">Write</a>
             <a href="/admin/subscribers">Subscribers</a>
             <a href="/admin/profile">Profile</a>
+            <a href="/login">Sign out</a>
           </nav>
         </div>
       </header>

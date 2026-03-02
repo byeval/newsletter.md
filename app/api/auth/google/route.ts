@@ -1,5 +1,6 @@
 import { signSession, verifyGoogleToken } from "../../../lib/auth";
 import { createUser, getUserByGoogleId } from "../../../lib/models";
+import { getEnv } from "../../../lib/env";
 
 export async function POST(request: Request) {
   const body = await request.json().catch(() => null);
@@ -35,4 +36,18 @@ export async function POST(request: Request) {
   }
 
   return Response.json({ user: session }, { headers });
+}
+
+export async function GET() {
+  const env = getEnv();
+  if (!env.GOOGLE_CLIENT_ID || !env.GOOGLE_REDIRECT_URI) {
+    return Response.json({ error: "OAuth not configured" }, { status: 500 });
+  }
+  const url = new URL("https://accounts.google.com/o/oauth2/v2/auth");
+  url.searchParams.set("client_id", env.GOOGLE_CLIENT_ID);
+  url.searchParams.set("redirect_uri", env.GOOGLE_REDIRECT_URI);
+  url.searchParams.set("response_type", "token");
+  url.searchParams.set("scope", "openid email profile");
+  url.searchParams.set("prompt", "select_account");
+  return Response.redirect(url.toString(), 302);
 }

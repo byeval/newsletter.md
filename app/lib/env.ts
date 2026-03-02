@@ -14,6 +14,7 @@ export type Env = {
   };
   EMAIL_FROM: string;
   BASE_URL: string;
+  GOOGLE_REDIRECT_URI: string;
 };
 
 export function getEnv(): Partial<Env> {

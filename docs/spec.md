@@ -51,6 +51,9 @@ This document defines the initial architecture, API surface, data model, and rep
 - Google OAuth (server-side exchange)
 - Session cookie: `session` (signed JWT)
 - Cookie: `HttpOnly`, `Secure`, `SameSite=Lax`
+## OAuth config
+- Google client id: `GOOGLE_CLIENT_ID`
+- Redirect URI: `GOOGLE_REDIRECT_URI` -> `/login/callback`
 
 ## Rendering
 - SSR HTML rendering via vinext App Router

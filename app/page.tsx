@@ -13,7 +13,7 @@ export default function HomePage() {
       </p>
 
       <div className="flex items-center gap-4">
-        <a href="/api/auth/google" className="btn btn-primary text-lg">
+        <a href="/login" className="btn btn-primary text-lg">
           Start Writing
         </a>
         <a href="https://github.com" target="_blank" rel="noreferrer" className="btn btn-outline text-lg">
