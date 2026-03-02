@@ -111,13 +111,7 @@ export async function listPosts(userId: string): Promise<DbPost[]> {
   return result.results ?? [];
 }
 
-export async function getPostById(id: string, userId: string): Promise<DbPost | null> {
-  const db = getDb();
-  if (!db) return null;
-  const stmt = db.prepare("SELECT * FROM posts WHERE id = ? AND user_id = ? LIMIT 1");
-  const result = await stmt.bind(id, userId).first<DbPost>();
-  return result ?? null;
-}
+
 
 export async function listPublishedPostsByUserId(userId: string): Promise<DbPost[]> {
   const db = getDb();
@@ -178,28 +172,4 @@ export async function deletePost(postId: string, userId: string): Promise<void> 
   const db = getDb();
   if (!db) return;
   await db.prepare("DELETE FROM posts WHERE id = ? AND user_id = ?").bind(postId, userId).run();
-}
-
-export async function deletePost(id: string, userId: string): Promise<void> {
-  const db = getDb();
-  if (!db) return;
-  const stmt = db.prepare("DELETE FROM posts WHERE id = ? AND user_id = ?");
-  await stmt.bind(id, userId).run();
-}
-
-export async function getActiveThemeConfigByUserId(
-  userId: string
-): Promise<Record<string, unknown>> {
-  const db = getDb();
-  if (!db) return {};
-  const result = await db
-    .prepare("SELECT config_values FROM user_themes WHERE user_id = ? AND is_active = 1 LIMIT 1")
-    .bind(userId)
-    .first<{ config_values: string }>();
-  if (!result?.config_values) return {};
-  try {
-    return JSON.parse(result.config_values) as Record<string, unknown>;
-  } catch {
-    return {};
-  }
 }

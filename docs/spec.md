@@ -5,7 +5,7 @@ This document defines the initial architecture, API surface, data model, and rep
 ## Goals
 - Free, open-source, simple publishing platform
 - Custom username path: `newsletter.md/u/username`
-- Themes with YAML-defined configuration
+- Newsletter-first publishing
 - Markdown editor + publish flow
 - Deploy on Cloudflare Workers + D1 + R2
 - Google OAuth login
@@ -51,35 +51,6 @@ This document defines the initial architecture, API surface, data model, and rep
 - Google OAuth (server-side exchange)
 - Session cookie: `session` (signed JWT)
 - Cookie: `HttpOnly`, `Secure`, `SameSite=Lax`
-
-## Theme System
-- Themes stored as records in D1 with YAML schema
-- Each user has one active theme
-- Theme config is stored as JSON values per user
-- Theme YAML defines editable fields
-
-### Theme Config (YAML example)
-```
-name: "Minimal Writer"
-version: "1.0"
-settings:
-  primary_color:
-    type: color
-    default: "#1f2937"
-  logo:
-    type: image
-    default: null
-  social_links:
-    type: list
-    item:
-      label: string
-      url: string
-  custom_pages:
-    type: list
-    item:
-      title: string
-      slug: string
-```
 
 ## Rendering
 - SSR HTML rendering via vinext App Router

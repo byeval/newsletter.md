@@ -1,9 +1,5 @@
 import { renderMarkdown } from "../../../../lib/markdown";
-import {
-  getActiveThemeConfigByUserId,
-  getPublishedPostByUsernameSlug,
-  getUserByUsername,
-} from "../../../../lib/models";
+import { getPublishedPostByUsernameSlug, getUserByUsername } from "../../../../lib/models";
 
 type PageProps = {
   params: { username: string; slug: string };
@@ -20,33 +16,46 @@ export default async function PostPage({ params }: PageProps) {
     );
   }
   const user = await getUserByUsername(params.username);
-  const themeConfig = user ? await getActiveThemeConfigByUserId(user.id) : {};
-  const brand = typeof themeConfig.brand === "string" ? themeConfig.brand : null;
-  const logo = typeof themeConfig.logo === "string" ? themeConfig.logo : null;
-  const primaryColor = typeof themeConfig.primary_color === "string" ? themeConfig.primary_color : null;
-  const socialLinks = Array.isArray(themeConfig.social_links) ? themeConfig.social_links : [];
   const html = post.html || renderMarkdown(post.markdown);
   return (
-    <main>
-      <header>
-        <h1 style={primaryColor ? { color: primaryColor } : undefined}>@{params.username}</h1>
-        {brand ? <p>{brand}</p> : null}
-        {logo ? <img src={logo} alt="Logo" /> : null}
+    <main className="mx-auto" style={{ maxWidth: "800px", padding: "2rem 1rem", marginTop: "2rem" }}>
+      <nav className="mb-12 flex items-center justify-between">
+        <a href={`/u/${params.username}`} className="flex items-center gap-3 text-muted" style={{ textDecoration: "none" }}>
+          {user?.avatar_url ? (
+            <img src={user.avatar_url} alt="Avatar" className="w-8 h-8 rounded-full object-cover" />
+          ) : null}
+          <span className="font-medium hover:underline">
+            {user?.name || `@${params.username}`}
+          </span>
+        </a>
+      </nav>
+
+      <header className="mb-12">
+        <h1 className="text-4xl md:text-5xl font-bold mb-6" style={{ lineHeight: 1.2 }}>
+          {post.title}
+        </h1>
+        <div className="flex items-center gap-4 text-muted mb-8">
+          <time dateTime={post.published_at || post.created_at}>
+            {new Date(post.published_at || post.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+          </time>
+          <span>•</span>
+          <span>By {user?.name || `@${params.username}`}</span>
+        </div>
+        {post.cover_url && (
+          <img 
+            src={post.cover_url} 
+            alt={post.title} 
+            className="w-full rounded-xl object-cover mb-12 shadow-sm" 
+            style={{ maxHeight: "60vh" }} 
+          />
+        )}
       </header>
-      <h2>{post.title}</h2>
-      {post.cover_url ? <img src={post.cover_url} alt="Cover" /> : null}
-      <article dangerouslySetInnerHTML={{ __html: html }} />
-      {socialLinks.length ? (
-        <footer>
-          <ul>
-            {socialLinks.map((link, index) => (
-              <li key={`${link?.url ?? ""}-${index}`}>
-                <a href={link?.url ?? "#"}>{link?.label ?? "Link"}</a>
-              </li>
-            ))}
-          </ul>
-        </footer>
-      ) : null}
+
+      <article 
+        style={{ fontSize: "1.125rem", color: "var(--text-color)" }}
+        dangerouslySetInnerHTML={{ __html: html }} 
+      />
+
     </main>
   );
 }

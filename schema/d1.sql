@@ -27,25 +27,6 @@ CREATE TABLE IF NOT EXISTS posts (
 );
 
 
-CREATE TABLE IF NOT EXISTS themes (
-  id TEXT PRIMARY KEY,
-  slug TEXT NOT NULL UNIQUE,
-  name TEXT NOT NULL,
-  repo_url TEXT,
-  version TEXT NOT NULL,
-  yaml_schema TEXT NOT NULL,
-  created_at TEXT NOT NULL
-);
-
-CREATE TABLE IF NOT EXISTS user_themes (
-  user_id TEXT NOT NULL,
-  theme_id TEXT NOT NULL,
-  is_active INTEGER NOT NULL DEFAULT 0,
-  config_values TEXT NOT NULL,
-  PRIMARY KEY (user_id, theme_id),
-  FOREIGN KEY (user_id) REFERENCES users(id),
-  FOREIGN KEY (theme_id) REFERENCES themes(id)
-);
 
 CREATE TABLE IF NOT EXISTS uploads (
   id TEXT PRIMARY KEY,

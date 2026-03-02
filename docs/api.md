@@ -66,56 +66,7 @@ Errors:
 
 ## Themes
 
-### GET /api/themes
-Response:
-```
-{
-  "themes": [
-    {
-      "id": "uuid",
-      "slug": "minimal-writer",
-      "name": "Minimal Writer",
-      "version": "1.0"
-    }
-  ]
-}
-```
 
-### POST /api/themes/activate
-Request:
-```
-{
-  "theme_id": "uuid"
-}
-```
-
-Response:
-```
-{
-  "theme_id": "uuid",
-  "active": true
-}
-```
-
-### PUT /api/themes/config
-Request:
-```
-{
-  "theme_id": "uuid",
-  "config_values": {
-    "primary_color": "#1f2937",
-    "logo": "r2://..."
-  }
-}
-```
-
-Response:
-```
-{
-  "theme_id": "uuid",
-  "config_values": {"primary_color": "#1f2937"}
-}
-```
 
 ## Posts
 
