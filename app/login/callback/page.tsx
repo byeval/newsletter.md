@@ -14,8 +14,12 @@ export default function LoginCallbackPage() {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify({ id_token: idToken }),
-    }).then(() => {
-      window.location.href = "/admin";
+    }).then((res) => {
+      if (res.ok) {
+        window.location.href = "/admin";
+      } else {
+        window.location.href = "/login";
+      }
     });
   }, []);
 

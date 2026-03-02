@@ -38,16 +38,19 @@ export async function POST(request: Request) {
   return Response.json({ user: session }, { headers });
 }
 
-export async function GET() {
+export async function GET(request: Request) {
   const env = getEnv();
-  if (!env.GOOGLE_CLIENT_ID || !env.GOOGLE_REDIRECT_URI) {
+  if (!env.GOOGLE_CLIENT_ID) {
     return Response.json({ error: "OAuth not configured" }, { status: 500 });
   }
+  const origin = env.BASE_URL || new URL(request.url).origin;
+  const redirectUri = env.GOOGLE_REDIRECT_URI || `${origin}/login/callback`;
   const url = new URL("https://accounts.google.com/o/oauth2/v2/auth");
   url.searchParams.set("client_id", env.GOOGLE_CLIENT_ID);
-  url.searchParams.set("redirect_uri", env.GOOGLE_REDIRECT_URI);
-  url.searchParams.set("response_type", "token");
+  url.searchParams.set("redirect_uri", redirectUri);
+  url.searchParams.set("response_type", "id_token");
   url.searchParams.set("scope", "openid email profile");
   url.searchParams.set("prompt", "select_account");
+  url.searchParams.set("nonce", crypto.randomUUID());
   return Response.redirect(url.toString(), 302);
 }

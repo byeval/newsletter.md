@@ -1,10 +1,19 @@
 import type { ReactNode } from "react";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
+import { getSessionFromCookie } from "../lib/auth";
 
 export const metadata = {
   title: "Admin - letters",
 };
 
-export default function AdminLayout({ children }: { children: ReactNode }) {
+export default async function AdminLayout({ children }: { children: ReactNode }) {
+  const cookieHeader = cookies()
+    .getAll()
+    .map((cookie) => `${cookie.name}=${cookie.value}`)
+    .join("; ");
+  const session = await getSessionFromCookie(cookieHeader);
+  if (!session) redirect("/login");
   return (
     <div className="admin-layout">
       <header className="admin-header">
