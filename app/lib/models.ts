@@ -205,3 +205,11 @@ export async function addSubscriber(data: DbSubscriber): Promise<boolean> {
     return false;
   }
 }
+
+export async function listActiveSubscribers(userId: string): Promise<DbSubscriber[]> {
+  const db = getDb();
+  if (!db) return [];
+  const stmt = db.prepare("SELECT * FROM subscribers WHERE user_id = ? AND status = 'active'");
+  const result = await stmt.bind(userId).all<DbSubscriber>();
+  return result.results ?? [];
+}

@@ -1,6 +1,8 @@
 import { getSessionFromCookie } from "../../lib/auth";
-import { createPost, listPosts } from "../../lib/models";
+import { createPost, listPosts, listActiveSubscribers, getUserById } from "../../lib/models";
 import { renderMarkdown } from "../../lib/markdown";
+import { sendEmail } from "../../lib/email";
+import { getEnv } from "../../lib/env";
 
 function createId() {
   return crypto.randomUUID();
@@ -43,5 +45,22 @@ export async function POST(request: Request) {
     updated_at: now,
     published_at: status === "published" ? now : null,
   });
+
+  if (status === "published") {
+    const env = getEnv();
+    const author = await getUserById(session.userId);
+    const subscribers = await listActiveSubscribers(session.userId);
+    if (env.BASE_URL && author && subscribers.length > 0) {
+      const postUrl = `${env.BASE_URL}/u/${author.username}/${slug}`;
+      await sendEmail(
+        subscribers.map((subscriber) => ({ email: subscriber.email, name: subscriber.name })),
+        {
+          subject: `${author.name || author.username} published: ${body.title}`,
+          html: `<p>${author.name || author.username} published a new post.</p><p><a href="${postUrl}">${body.title}</a></p>`,
+          text: `${author.name || author.username} published a new post: ${postUrl}`,
+        }
+      );
+    }
+  }
   return Response.json({ id, status });
 }

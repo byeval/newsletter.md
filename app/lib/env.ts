@@ -4,6 +4,17 @@ export type Env = {
   THEME_KV: KVNamespace;
   AUTH_SECRET: string;
   GOOGLE_CLIENT_ID: string;
+  SEND_EMAIL: {
+    send: (message: {
+      to: { email: string; name?: string }[];
+      from: { email: string; name?: string };
+      subject: string;
+      html?: string;
+      text?: string;
+    }) => Promise<void>;
+  };
+  EMAIL_FROM: string;
+  BASE_URL: string;
 };
 
 export function getEnv(): Partial<Env> {

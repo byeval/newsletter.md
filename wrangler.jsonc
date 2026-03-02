@@ -19,5 +19,9 @@
       "binding": "THEME_KV",
       "id": ""
     }
-  ]
+  ],
+  "vars": {
+    "EMAIL_FROM": "no-reply@newsletter.md",
+    "BASE_URL": "https://newsletter.md"
+  }
 }
