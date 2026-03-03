@@ -1,7 +1,7 @@
 export type Env = {
   DB: D1Database;
   BUCKET: R2Bucket;
-  AUTH_SECRET: string;
+  GOOGLE_CLIENT_SECRET: string;
   GOOGLE_CLIENT_SECRET: string;
   GOOGLE_CLIENT_ID: string;
   SEND_EMAIL: {
@@ -25,7 +25,7 @@ export function getEnv(): Partial<Env> {
   const withPrefix = (key: string) => metaEnv[`VITE_${key}`] ?? processEnv[`VITE_${key}`];
   return {
     ...globalEnv,
-    AUTH_SECRET: globalEnv.AUTH_SECRET ?? processEnv.AUTH_SECRET ?? metaEnv.AUTH_SECRET ?? withPrefix("AUTH_SECRET"),
+    GOOGLE_CLIENT_SECRET: globalEnv.GOOGLE_CLIENT_SECRET ?? processEnv.GOOGLE_CLIENT_SECRET ?? metaEnv.GOOGLE_CLIENT_SECRET ?? withPrefix("GOOGLE_CLIENT_SECRET"),
     GOOGLE_CLIENT_SECRET:
       globalEnv.GOOGLE_CLIENT_SECRET ??
       processEnv.GOOGLE_CLIENT_SECRET ??
