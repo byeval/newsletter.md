@@ -6,28 +6,14 @@ type Post = {
   updated_at: string;
 };
 
-import { headers } from "next/headers";
-
 async function getPosts(): Promise<Post[]> {
-  const host = headers().get("host");
-  const protocol = process.env.NODE_ENV === "development" ? "http" : "https";
-  const cookieHeader = headers().get("cookie") ?? "";
-  const res = await fetch(`${protocol}://${host}/api/posts`, {
-    cache: "no-store",
-    headers: { cookie: cookieHeader },
-  });
+  const res = await fetch("/api/posts", { cache: "no-store" });
   const data = (await res.json()) as { posts?: Post[] };
   return data.posts ?? [];
 }
 
 async function getUser(): Promise<{ username: string | null } | null> {
-  const host = headers().get("host");
-  const protocol = process.env.NODE_ENV === "development" ? "http" : "https";
-  const cookieHeader = headers().get("cookie") ?? "";
-  const res = await fetch(`${protocol}://${host}/api/me`, {
-    cache: "no-store",
-    headers: { cookie: cookieHeader },
-  });
+  const res = await fetch("/api/me", { cache: "no-store" });
   if (!res.ok) return null;
   const data = await res.json() as { user?: { username: string | null } };
   return data.user ?? null;

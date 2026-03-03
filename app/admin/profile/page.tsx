@@ -1,13 +1,5 @@
-import { headers } from "next/headers";
-
 async function getUser() {
-  const host = headers().get("host");
-  const protocol = process.env.NODE_ENV === "development" ? "http" : "https";
-  const cookieHeader = headers().get("cookie") ?? "";
-  const res = await fetch(`${protocol}://${host}/api/me`, {
-    cache: "no-store",
-    headers: { cookie: cookieHeader },
-  });
+  const res = await fetch("/api/me", { cache: "no-store" });
   if (!res.ok) return null;
   const data = await res.json() as { user?: { name?: string | null; email?: string; avatar_url?: string | null; username?: string | null } };
   return data.user ?? null;
