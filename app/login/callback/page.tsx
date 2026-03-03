@@ -16,15 +16,16 @@ export default function LoginCallbackPage() {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify({ id_token: idToken }),
-    }).then((res) => {
-      if (res.ok) {
-        window.location.href = "/admin";
-      } else {
-        res.json().then((data) => {
-          setError(data?.error || "Login failed. Please try again.");
-        });
-      }
-    });
+    })
+      .then(async (res) => {
+        if (res.ok) {
+          window.location.href = "/admin";
+          return;
+        }
+        const data = await res.json().catch(() => null);
+        setError(data?.error || "Login failed. Please try again.");
+      })
+      .catch(() => setError("Login failed. Please try again."));
   }, []);
 
   return (
