@@ -10,7 +10,7 @@ export default function AdminGuard({ children }: GuardProps) {
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    fetch("/api/me", { cache: "no-store" })
+    fetch("/api/me", { cache: "no-store", credentials: "include" })
       .then((res) => res.json() as Promise<{ user?: { id?: string } | null }>)
       .then((data) => {
         if (!data.user) {

@@ -29,9 +29,11 @@ export async function POST(request: Request) {
   const token = await signSession(session);
   const headers = new Headers();
   if (token) {
+    const isSecure = (new URL(request.url)).protocol === "https:";
+    const secureAttr = isSecure ? " Secure;" : "";
     headers.append(
       "Set-Cookie",
-      `session=${token}; Path=/; HttpOnly; Secure; SameSite=Lax`
+      `session=${token}; Path=/; HttpOnly;${secureAttr} SameSite=Lax`
     );
   }
 

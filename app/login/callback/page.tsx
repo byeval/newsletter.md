@@ -16,6 +16,7 @@ export default function LoginCallbackPage() {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify({ id_token: idToken }),
+      credentials: "include",
     })
       .then(async (res) => {
         if (res.ok) {
