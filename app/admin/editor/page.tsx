@@ -1,6 +1,6 @@
 import UploadWidget from "./UploadWidget";
 import TiptapEditor from "./TiptapEditor";
-import { cookies, headers } from "next/headers";
+import { headers } from "next/headers";
 
 type PageProps = {
   searchParams: { id?: string };
@@ -20,10 +20,7 @@ export default async function EditorPage({ searchParams }: PageProps) {
   if (searchParams.id) {
     const host = headers().get("host");
     const protocol = process.env.NODE_ENV === "development" ? "http" : "https";
-    const cookieHeader = cookies()
-      .getAll()
-      .map((cookie) => `${cookie.name}=${cookie.value}`)
-      .join("; ");
+    const cookieHeader = headers().get("cookie") ?? "";
     const res = await fetch(`${protocol}://${host}/api/posts/${searchParams.id}`, {
       cache: "no-store",
       headers: { cookie: cookieHeader },
