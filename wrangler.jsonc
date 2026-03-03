@@ -18,7 +18,7 @@
   "vars": {
     "EMAIL_FROM": "no-reply@newsletter.md",
     "BASE_URL": "https://newsletter.md",
-    "GOOGLE_CLIENT_ID": "966737755057-bf87gjom460ncmliieo7s81bfov7mau5.apps.googleusercontent.com",
+    "GOOGLE_CLIENT_ID": "83038945237-5cudbdeu9lq3lrrvlapc9qibfrldmd4b.apps.googleusercontent.com",
     "GOOGLE_REDIRECT_URI": "https://newsletter.md/login/callback"
   }
 }
