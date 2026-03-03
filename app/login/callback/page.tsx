@@ -1,13 +1,15 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function LoginCallbackPage() {
+  const [error, setError] = useState<string | null>(null);
+
   useEffect(() => {
     const hash = new URLSearchParams(window.location.hash.slice(1));
     const idToken = hash.get("id_token");
     if (!idToken) {
-      window.location.href = "/login";
+      setError("Missing Google token. Please try again.");
       return;
     }
     fetch("/api/auth/google", {
@@ -18,7 +20,9 @@ export default function LoginCallbackPage() {
       if (res.ok) {
         window.location.href = "/admin";
       } else {
-        window.location.href = "/login";
+        res.json().then((data) => {
+          setError(data?.error || "Login failed. Please try again.");
+        });
       }
     });
   }, []);
@@ -26,7 +30,12 @@ export default function LoginCallbackPage() {
   return (
     <main className="mt-12 text-center">
       <h1 className="text-2xl font-bold mb-4">Signing you in...</h1>
-      <p className="text-muted">Please wait.</p>
+      {error ? <p className="text-muted">{error}</p> : <p className="text-muted">Please wait.</p>}
+      {error ? (
+        <div className="mt-4">
+          <a className="btn btn-outline" href="/login">Back to login</a>
+        </div>
+      ) : null}
     </main>
   );
 }
