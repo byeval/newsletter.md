@@ -27,6 +27,9 @@ export async function POST(request: Request) {
   }
 
   const token = await signSession(session);
+  if (!token) {
+    return Response.json({ error: "Session secret not configured" }, { status: 500 });
+  }
   const headers = new Headers();
   if (token) {
     const isSecure = (new URL(request.url)).protocol === "https:";

@@ -33,8 +33,8 @@ export async function verifyGoogleToken(idToken: string): Promise<Session | null
 
 export async function signSession(session: Session): Promise<string> {
   const env = getEnv();
-  if (!env.GOOGLE_CLIENT_SECRET) return "";
-  const secret = new TextEncoder().encode(env.GOOGLE_CLIENT_SECRET);
+  if (!env.AUTH_SECRET) return "";
+  const secret = new TextEncoder().encode(env.AUTH_SECRET);
   return new SignJWT(session)
     .setProtectedHeader({ alg: "HS256" })
     .setIssuedAt()
@@ -48,9 +48,9 @@ export async function getSessionFromCookie(cookie: string | null): Promise<Sessi
   if (!match) return null;
   const token = match[1];
   const env = getEnv();
-  if (!env.GOOGLE_CLIENT_SECRET) return null;
+  if (!env.AUTH_SECRET) return null;
   try {
-    const secret = new TextEncoder().encode(env.GOOGLE_CLIENT_SECRET);
+    const secret = new TextEncoder().encode(env.AUTH_SECRET);
     const { payload } = await jwtVerify(token, secret);
     return payload as Session;
   } catch {
