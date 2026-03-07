@@ -20,7 +20,12 @@ export default function LoginCallbackPage() {
     })
       .then(async (res) => {
         if (res.ok) {
-          window.location.href = "/admin";
+          const data = await res.json().catch(() => null);
+          if (data?.hasCookie) {
+            window.location.href = "/admin";
+            return;
+          }
+          setError("Login succeeded but session cookie was not set.");
           return;
         }
         const data = await res.json().catch(() => null);

@@ -40,7 +40,7 @@ export async function POST(request: Request) {
     );
   }
 
-  return Response.json({ user: session }, { headers });
+  return Response.json({ user: session, hasCookie: !!token }, { headers });
 }
 
 export async function GET(request: Request) {
