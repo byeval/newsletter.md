@@ -28,7 +28,7 @@ export async function POST(request: Request) {
 
   const token = await signSession(session);
   if (!token) {
-    return Response.json({ error: "Session secret not configured" }, { status: 500 });
+    return Response.json({ error: "GOOGLE_CLIENT_SECRET not configured" }, { status: 500 });
   }
   const headers = new Headers();
   if (token) {
